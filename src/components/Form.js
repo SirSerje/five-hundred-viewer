@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import uuidv1 from "uuid"
+import PropTypes from "prop-types";
+import uuidv1 from "uuid";
 import { addArticle } from "../actions/index";
 
 const mapDispatchToProps = dispatch => {
@@ -36,7 +37,7 @@ class ConnectedForm extends Component {
     render() {
         const { title } = this.state;
         return (
-            <form onSubmit={this.handleSubmit()}>
+            <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input
@@ -56,5 +57,9 @@ class ConnectedForm extends Component {
 }
 
 const Form = connect(null, mapDispatchToProps)(ConnectedForm);
+
+ConnectedForm.propTypes = {
+    addArticle: PropTypes.func.isRequired
+};
 
 export default Form;
