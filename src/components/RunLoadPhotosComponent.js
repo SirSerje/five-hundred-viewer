@@ -2,16 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import uuidv1 from "uuid";
-import { addArticle } from "../actions/addArticle";
+import { loadPhotos } from "../actions/loadPhotos";
 
-const mapDispatchToProps = dispatch => {
-    console.log("ДИСПАЧ АРТИКЛА ИЗ ФОРМЫ");
-    return {
-        addArticle: article => dispatch(addArticle(article))
-    };
-};
 
-class ConnectedForm extends Component {
+class RunLoadPhotosComponent extends Component {
     constructor() {
         super();
 
@@ -31,7 +25,7 @@ class ConnectedForm extends Component {
         event.preventDefault();
         const { title } = this.state;
         const id = uuidv1();
-        this.props.addArticle({ title, id });
+        this.props.loadPhotos({ title, id });
         this.setState({ title:"" });
     }
 
@@ -47,7 +41,7 @@ class ConnectedForm extends Component {
                         id="title"
                         value={title}
                         onChange={this.handleChange}
-                        />
+                    />
                 </div>
                 <button type="submit" className="btn btn-success btn-lg">
                     SAVE
@@ -57,10 +51,16 @@ class ConnectedForm extends Component {
     }
 }
 
-const Form = connect(null, mapDispatchToProps)(ConnectedForm);
-
-ConnectedForm.propTypes = {
-    addArticle: PropTypes.func.isRequired
+const mapDispatchToProps = dispatch => {
+    console.log("RLPC: mapDispatchToProps");
+    return {
+        loadPhotos: photo => dispatch(loadPhotos(photo))
+    };
 };
+
+
+const Form = connect(null, mapDispatchToProps)(RunLoadPhotosComponent);
+
+
 
 export default Form;

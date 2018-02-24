@@ -1,9 +1,10 @@
 import React from "react";
 import List from "./List";
 import Form from "./Form";
-import TopComponent from "./TopComponent";
+import TopComponent from "./PhotoView";
 import FavoritesComponent from "./FavoritesComponent";
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import RunLoadPhotosComponent from "../components/RunLoadPhotosComponent";
 
 
 import {withRouter} from "react-router-dom";
@@ -12,7 +13,6 @@ import {withRouter} from "react-router-dom";
 const App = () => (
     <Router>
         <div>
-
 
             <div class="container">
                 <div class="row mt-5">
@@ -41,6 +41,7 @@ const App = () => (
             <div class="container">
                 <div class="row mt-3">
                     <div className="col-md">
+                        <Route exact path="/" component={RunLoadPhotosComponent}/>
                         <Route exact path="/" component={TopComponent}/>
                         <Route exact path="/favorites" component={FavoritesComponent}/>
                     </div>
