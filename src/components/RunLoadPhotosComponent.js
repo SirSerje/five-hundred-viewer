@@ -26,7 +26,8 @@ class RunLoadPhotosComponent extends Component {
             selected  : false,
             showButton: false,
             isHidden  : true,
-            sum:0
+            sum:0,
+            toFvs:[]
         };
 
         this.handler = this.handler.bind(this);
@@ -38,11 +39,20 @@ class RunLoadPhotosComponent extends Component {
         e.preventDefault();
 
         this.setState({showButton: !(one.selected)});
+
+
         if(!(one.selected)) {
          this.state.sum++
+            this.state.toFvs.push(one)
+            console.log(this.state.toFvs)
         } else {
+            this.state.toFvs.splice(this.state.toFvs.indexOf(one),1)
             this.state.sum--
+            console.log(this.state.toFvs)
+
         }
+
+
     }
 
     handleSubmit(event) {
@@ -56,10 +66,8 @@ class RunLoadPhotosComponent extends Component {
         });
         console.log(this.state.isHidden);
 
-let arr =[]
-        arr.push(this.props.photos[0]);
         //arr.push(this.props.photos[1]);
-        this.props.add_FAVS(arr);
+        this.props.add_FAVS(this.state.toFvs);
 
     }
 

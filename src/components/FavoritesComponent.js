@@ -32,12 +32,13 @@ class FavoritesComponent extends Component {
 
                 <div class="row mt-3">
                     {console.log("++++------>",this.props.favorites)}
-            {/*        <img src={this.props.favorites.image_url}/>*/}
 
                      {this.props.favorites.map((item) => (
-                        <PhotoItem handler={this.handler} image_source={item}/>
-
+                     <PhotoItem handler={this.handler} image_source={item.photo}/>
                     ))}
+
+
+
                 </div>
             </div>
         );
