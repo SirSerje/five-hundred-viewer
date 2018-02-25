@@ -36,9 +36,9 @@ class RunLoadPhotosComponent extends Component {
 
     handler(e, one) {
         e.preventDefault();
-        this.setState({showButton: !one});
 
-        if(!one) {
+        this.setState({showButton: !(one.selected)});
+        if(!(one.selected)) {
          this.state.sum++
         } else {
             this.state.sum--
@@ -70,7 +70,7 @@ class RunLoadPhotosComponent extends Component {
                 <div class="row mt-3">
                     {this.props.photos.map((item) => (
 
-                        <PhotoItem handler={this.handler} image_source={item.image_url[0]}/>
+                        <PhotoItem handler={this.handler} image_source={item}/>
 
                     ))}
                 </div>
