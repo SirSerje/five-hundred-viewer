@@ -10,7 +10,7 @@ export function fetchPhotos(filter, page){
         page: page || 1,
         consumer_key: CONSUMER_KEY,
         image_size: 3,
-        rpp: 50,
+        rpp: 5,
         exclude: "nude"
       }
     });

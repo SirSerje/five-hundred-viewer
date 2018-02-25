@@ -7,7 +7,10 @@ class RunLoadPhotosComponent extends Component {
 
 
     componentDidMount() {
-        this.props.loadPH();
+        this.props.loadPH(this.props.page);
+
+        console.log("component did mount" , this.props.page);
+
         window.addEventListener("scroll", (e) => {
             //console.log(document.body.scrollHeight,  window.innerHeight +  e.pageY)
             if (document.body.scrollHeight < (window.innerHeight +  e.pageY)) {
@@ -35,15 +38,16 @@ class RunLoadPhotosComponent extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.loadPH();
+        this.props.loadPH(this.props.page+1);
     }
 
     render() {
         const { title } = this.state;
         return (
             <div>
+                <b>{this.props.page}</b>
             <form onSubmit={this.handleSubmit}>
-                {/*<div className="form-group">
+             {/*   <div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input
                         type="text"
@@ -52,11 +56,11 @@ class RunLoadPhotosComponent extends Component {
                         value={title}
                         onChange={this.handleChange}
                     />
-                </div>
+                </div>*/}
                 <button type="submit" className="btn btn-success btn-lg">
                     SAVE
                 </button>
-                 */}
+
             </form>
 
                 {this.props.photos.map((item) => (
@@ -69,10 +73,11 @@ class RunLoadPhotosComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("mapStateToProps", state.photos)
+    console.log("mapStateToProps", state)
     return {
         photos: state.photos,
-     //   items: state.items,
+        page: state.page,
+        items: state.items,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading
     };
@@ -80,7 +85,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadPH: (url) => dispatch(load_X_Photos(1))
+        loadPH: (page) => dispatch(load_X_Photos(page))
     };
 };
 

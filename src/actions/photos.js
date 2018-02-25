@@ -6,13 +6,17 @@ export const PHOTOS_ERROR = 'PHOTOS_ERROR';
 export const PHOTOS_LOADED = 'PHOTOS_LOADED';
 
 export const load_X_Photos = (page) => (dispatch) => {
-    {console.log("LOAD PHOTOS")}
-  let filter = "";
+    {console.log("LOAD PHOTOS", page)}
+  let filter = ""; //TODO фильтр можно будет заменить на что то
+
   dispatch({type: PHOTOS_FETCH, selectedFilter: filter});
   fetchPhotos(filter, page)
+
   .then(function(response){
+
     dispatch(photosLoaded(response.data.photos, response.data.current_page, filter));
-      (response.data.photos);
+
+      console.log("RESP", response.data.current_page)
 
   })
   .catch(function(err){
@@ -28,7 +32,7 @@ function loadingError(message){
 }
 
 function photosLoaded(photos, page, filter){
-  console.log("photos loaded",photos);
+  console.log("photos loaded",page);
   return {
     type: PHOTOS_LOADED,
     photos: photos,

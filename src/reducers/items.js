@@ -30,7 +30,7 @@ export function items(state = [], action) {
 
 
 export function photos(state = [], action) {
-    console.log("reducers - photos", action.photos, action.type)
+    console.log("reducers - photos")
     switch (action.type) {
         case 'PHOTOS_LOADED':
             return action.photos;
@@ -40,3 +40,13 @@ export function photos(state = [], action) {
     }
 }
 
+export function page(state = [], action) {
+    console.log("reducers - page",  action.page)
+    switch (action.type) {
+        case 'PHOTOS_LOADED':
+            return action.page;
+
+        default:
+            return state;
+    }
+}
