@@ -1,108 +1,101 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {load_X_Photos} from "../actions/photos";
-import PhotoItem from "../components/PhotoItem"
+import PhotoItem from "../components/PhotoItem";
 
 
 class RunLoadPhotosComponent extends Component {
 
-
     componentDidMount() {
         this.props.loadPH(this.props.page);
 
-        console.log("component did mount" , this.props.page);
+        console.log("component did mount", this.props.page);
 
         window.addEventListener("scroll", (e) => {
-            //console.log(document.body.scrollHeight,  window.innerHeight +  e.pageY)
-            if (document.body.scrollHeight < (window.innerHeight +  e.pageY)) {
-                console.log("OVERSCROLL!", this.props.page + 1) //TODO пофиксить работу props.page
-                    this.props.loadPH(/*this.props.selectedFilter,*/ this.props.page + 1, this.props.photos);
+            if (document.body.scrollHeight < (window.innerHeight + e.pageY)) {
+                console.log("OVERSCROLL!", this.props.page + 1); //TODO пофиксить работу props.page
+                this.props.loadPH(this.props.page + 1, this.props.photos);
             }
         });
     }
 
-
     constructor() {
         super();
-
         this.state = {
-            title:"",
-            selected:false
+            title     : "",
+            selected  : false,
+            showButton: false,
+            isHidden  : true,
+            sum:0
         };
 
         this.handler = this.handler.bind(this);
-        //this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit= this.handleSubmit.bind(this);
-        //this.photoClick= this.photoClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.toggleHidden = this.toggleHidden.bind(this);
     }
 
     handler(e, one) {
         e.preventDefault();
-        console.log(!one)
+        this.setState({showButton: !one});
 
+        if(!one) {
+         this.state.sum++
+        } else {
+            this.state.sum--
+        }
     }
-
-    /*handler(event) {
-        console.log("UPDATE FORM")
-        event.targer.setState({selected: this.state.selected == 0 ? 1 : 0})
-    }*/
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.loadPH(this.props.page+1, this.props.photos);
+        this.props.loadPH(this.props.page + 1, this.props.photos);
     }
 
-  /*  photoClick(event) {
-        event.preventDefault();
-        console.log("PRESSED")
-    }*/
+    toggleHidden() {
+        this.setState({
+            isHidden: !this.state.isHidden,
+        });
+        console.log(this.state.isHidden);
+    }
 
     render() {
         return (
-            <div>
-                {/*<b>{this.props.page}</b>*/}
-            {/*<form onSubmit={this.handleSubmit}>*/}
-
-                {/*<nav class="navbar navbar-default navbar-fixed-top">HEADER</nav>*/}
-
-
-                {/*<button type="submit" className="btn btn-success btn-lg">
-                    SAVE
-                </button>*/}
-            {/*</form>*/}
-                {console.log(">>>>",this.props.photos)}
-
-                <div class="container">
-                    <div class="row mt-3">
-                            {this.props.photos.map((item) => (
-                                <PhotoItem   handler = {this.handler} image_source={item.image_url[0]}/>
-                            ))}
-
-
-                    </div>
+            <div class="container">
+                {this.state.sum}
+                <div>
+                    {this.state.sum > 0 && <button className="btn btn-warning" onClick={this.toggleHidden}>
+                        Favourites -> </button>                    }
                 </div>
 
 
+                <div class="row mt-3">
+                    {this.props.photos.map((item) => (
 
+                        <PhotoItem handler={this.handler} image_source={item.image_url[0]}/>
+
+                    ))}
+                </div>
             </div>
         );
     }
 }
+const Child = () => (
+    <p>Hello, World!</p>
+);
 
 const mapStateToProps = (state) => {
-    console.log("mapStateToProps", state)
+    console.log("mapStateToProps", state);
     return {
-        photos: state.photos,
-        page: state.page,
-        items: state.items,
+        photos    : state.photos,
+        page      : state.page,
+        items     : state.items,
         hasErrored: state.itemsHasErrored,
-        isLoading: state.itemsIsLoading
+        isLoading : state.itemsIsLoading,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadPH: (page, photos) => dispatch(load_X_Photos(page, photos))
+        loadPH: (page, photos) => dispatch(load_X_Photos(page, photos)),
     };
 };
 
