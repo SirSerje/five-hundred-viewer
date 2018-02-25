@@ -1,13 +1,7 @@
 import React from "react";
-import List from "./List";
-import Form from "./Form";
-import TopComponent from "./PhotoView";
-import FavoritesComponent from "./FavoritesComponent";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, withRouter} from "react-router-dom";
 import RunLoadPhotosComponent from "../components/RunLoadPhotosComponent";
-
-
-import {withRouter} from "react-router-dom";
+import FavoritesComponent from "./FavoritesComponent";
 
 
 const App = () => (
@@ -29,12 +23,10 @@ const App = () => (
 
             <div class="container">
                 <div class="row mt-3">
-                    <div className="col-md-6">
                         <ButtonTop/>
-                    </div>
-                    <div className="col-md-6">
                         <ButtonFavorites/>
-                    </div>
+
+
                 </div>
             </div>
 
@@ -44,7 +36,6 @@ const App = () => (
                 <div class="row mt-3">
                     <div className="col-md">
                         <Route exact path="/" component={RunLoadPhotosComponent}/>
-                        {/*<Route exact path="/" component={TopComponent}/>*/}
                         <Route exact path="/favorites" component={FavoritesComponent}/>
                     </div>
                 </div>
@@ -67,7 +58,7 @@ const ButtonTop = withRouter(({history}) => (
             history.push("/");
         }}
     >
-        TOP
+        HOT
     </button>
 ));
 

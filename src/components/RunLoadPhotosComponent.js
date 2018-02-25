@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {load_X_Photos} from "../actions/photos";
+import PhotoItem from "../components/PhotoItem"
 
 
 class RunLoadPhotosComponent extends Component {
@@ -25,47 +26,63 @@ class RunLoadPhotosComponent extends Component {
         super();
 
         this.state = {
-            title:""
+            title:"",
+            selected:false
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handler = this.handler.bind(this);
+        //this.handleChange = this.handleChange.bind(this);
         this.handleSubmit= this.handleSubmit.bind(this);
+        //this.photoClick= this.photoClick.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({[event.target.id]: event.target.value});
+    handler(e, one) {
+        e.preventDefault();
+        console.log(!one)
+
     }
+
+    /*handler(event) {
+        console.log("UPDATE FORM")
+        event.targer.setState({selected: this.state.selected == 0 ? 1 : 0})
+    }*/
 
     handleSubmit(event) {
         event.preventDefault();
         this.props.loadPH(this.props.page+1, this.props.photos);
     }
 
+  /*  photoClick(event) {
+        event.preventDefault();
+        console.log("PRESSED")
+    }*/
+
     render() {
-        const { title } = this.state;
         return (
             <div>
-                <b>{this.props.page}</b>
-            <form onSubmit={this.handleSubmit}>
-             {/*   <div className="form-group">
-                    <label htmlFor="title">Title</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        value={title}
-                        onChange={this.handleChange}
-                    />
-                </div>*/}
-                <button type="submit" className="btn btn-success btn-lg">
-                    SAVE
-                </button>
+                {/*<b>{this.props.page}</b>*/}
+            {/*<form onSubmit={this.handleSubmit}>*/}
 
-            </form>
+                {/*<nav class="navbar navbar-default navbar-fixed-top">HEADER</nav>*/}
+
+
+                {/*<button type="submit" className="btn btn-success btn-lg">
+                    SAVE
+                </button>*/}
+            {/*</form>*/}
                 {console.log(">>>>",this.props.photos)}
-                {this.props.photos.map((item) => (
-                    <img src={item.image_url[0]} alt="default" class="img-thumbnail" />
-                ))}
+
+                <div class="container">
+                    <div class="row mt-3">
+                            {this.props.photos.map((item) => (
+                                <PhotoItem   handler = {this.handler} image_source={item.image_url[0]}/>
+                            ))}
+
+
+                    </div>
+                </div>
+
+
 
             </div>
         );
