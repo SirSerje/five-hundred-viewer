@@ -15,7 +15,7 @@ class RunLoadPhotosComponent extends Component {
             //console.log(document.body.scrollHeight,  window.innerHeight +  e.pageY)
             if (document.body.scrollHeight < (window.innerHeight +  e.pageY)) {
                 console.log("OVERSCROLL!", this.props.page + 1) //TODO пофиксить работу props.page
-                    this.props.loadPH(/*this.props.selectedFilter,*/ this.props.page + 1);
+                    this.props.loadPH(/*this.props.selectedFilter,*/ this.props.page + 1, this.props.photos);
             }
         });
     }
@@ -38,7 +38,7 @@ class RunLoadPhotosComponent extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.loadPH(this.props.page+1);
+        this.props.loadPH(this.props.page+1, this.props.photos);
     }
 
     render() {
@@ -62,7 +62,7 @@ class RunLoadPhotosComponent extends Component {
                 </button>
 
             </form>
-
+                {console.log(">>>>",this.props.photos)}
                 {this.props.photos.map((item) => (
                     <img src={item.image_url[0]} alt="default" class="img-thumbnail" />
                 ))}
@@ -85,7 +85,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadPH: (page) => dispatch(load_X_Photos(page))
+        loadPH: (page, photos) => dispatch(load_X_Photos(page, photos))
     };
 };
 

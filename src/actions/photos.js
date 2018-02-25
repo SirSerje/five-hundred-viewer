@@ -5,8 +5,10 @@ export const PHOTOS_FETCH = 'FETCH_PHOTOS';
 export const PHOTOS_ERROR = 'PHOTOS_ERROR';
 export const PHOTOS_LOADED = 'PHOTOS_LOADED';
 
-export const load_X_Photos = (page) => (dispatch) => {
+export const load_X_Photos = (page, NNN) => (dispatch) => {
+
     {console.log("LOAD PHOTOS", page)}
+
   let filter = ""; //TODO фильтр можно будет заменить на что то
 
   dispatch({type: PHOTOS_FETCH, selectedFilter: filter});
@@ -14,9 +16,7 @@ export const load_X_Photos = (page) => (dispatch) => {
 
   .then(function(response){
 
-    dispatch(photosLoaded(response.data.photos, response.data.current_page, filter));
-
-      console.log("RESP", response.data.current_page)
+    dispatch(photosLoaded(NNN != undefined ? NNN.concat(response.data.photos) : response.data.photos, response.data.current_page, filter, NNN));
 
   })
   .catch(function(err){
@@ -31,8 +31,8 @@ function loadingError(message){
   }
 }
 
-function photosLoaded(photos, page, filter){
-  console.log("photos loaded",page);
+function photosLoaded(photos, page, filter, MMM){
+  console.log("photos loaded",MMM);
   return {
     type: PHOTOS_LOADED,
     photos: photos,
