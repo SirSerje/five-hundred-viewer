@@ -5,7 +5,6 @@ import TopComponent from "./PhotoView";
 import FavoritesComponent from "./FavoritesComponent";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import RunLoadPhotosComponent from "../components/RunLoadPhotosComponent";
-import ItemList from '../components/ItemList';
 
 
 import {withRouter} from "react-router-dom";
@@ -15,7 +14,7 @@ const App = () => (
     <Router>
         <div>
 
-            <div class="container">
+           {/* <div class="container">
                 <div class="row mt-5">
                     <div className="col-md-4 offset-md-1">
                         <h2>Articles</h2>
@@ -26,7 +25,7 @@ const App = () => (
                         <Form />
                     </div>
                 </div>
-            </div>
+            </div>*/}
 
             <div class="container">
                 <div class="row mt-3">
@@ -39,14 +38,13 @@ const App = () => (
                 </div>
             </div>
 
-            <ItemList />
 
 
             <div class="container">
                 <div class="row mt-3">
                     <div className="col-md">
                         <Route exact path="/" component={RunLoadPhotosComponent}/>
-                        <Route exact path="/" component={TopComponent}/>
+                        {/*<Route exact path="/" component={TopComponent}/>*/}
                         <Route exact path="/favorites" component={FavoritesComponent}/>
                     </div>
                 </div>

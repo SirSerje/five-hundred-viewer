@@ -1,15 +1,22 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import uuidv1 from "uuid";
-import { itemsFetchData } from '../actions/items';
-import { load_X_Photos } from '../actions/photos';
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {load_X_Photos} from "../actions/photos";
 
 
 class RunLoadPhotosComponent extends Component {
+
+
     componentDidMount() {
         this.props.loadPH();
+        window.addEventListener("scroll", (e) => {
+            //console.log(document.body.scrollHeight,  window.innerHeight +  e.pageY)
+            if (document.body.scrollHeight < (window.innerHeight +  e.pageY)) {
+                console.log("OVERSCROLL!", this.props.page + 1) //TODO пофиксить работу props.page
+                    this.props.loadPH(/*this.props.selectedFilter,*/ this.props.page + 1);
+            }
+        });
     }
+
 
     constructor() {
         super();
@@ -36,7 +43,7 @@ class RunLoadPhotosComponent extends Component {
         return (
             <div>
             <form onSubmit={this.handleSubmit}>
-                <div className="form-group">
+                {/*<div className="form-group">
                     <label htmlFor="title">Title</label>
                     <input
                         type="text"
@@ -49,6 +56,7 @@ class RunLoadPhotosComponent extends Component {
                 <button type="submit" className="btn btn-success btn-lg">
                     SAVE
                 </button>
+                 */}
             </form>
 
                 {this.props.photos.map((item) => (
@@ -64,7 +72,7 @@ const mapStateToProps = (state) => {
     console.log("mapStateToProps", state.photos)
     return {
         photos: state.photos,
-        items: state.items,
+     //   items: state.items,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading
     };
