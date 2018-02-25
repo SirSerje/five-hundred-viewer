@@ -1,13 +1,10 @@
-import React from "react";
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { itemsFetchData } from '../actions/items';
-import { Component } from 'react';
+import { loadPhotos } from '../actions/photos';
 
-
-
-class PhotoView extends Component {
+class ItemList extends Component {
     componentDidMount() {
-        console.log("TTT", this.props);
         this.props.fetchData('http://599167402df2f40011e4929a.mockapi.io/items');
     }
 
@@ -32,12 +29,6 @@ class PhotoView extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchData: (url) => dispatch(itemsFetchData(url))
-    };
-};
-
 
 const mapStateToProps = (state) => {
     return {
@@ -47,4 +38,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PhotoView);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchData: (url) => dispatch(itemsFetchData(url))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemList);

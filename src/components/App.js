@@ -5,6 +5,7 @@ import TopComponent from "./PhotoView";
 import FavoritesComponent from "./FavoritesComponent";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import RunLoadPhotosComponent from "../components/RunLoadPhotosComponent";
+import ItemList from '../components/ItemList';
 
 
 import {withRouter} from "react-router-dom";
@@ -37,6 +38,9 @@ const App = () => (
                     </div>
                 </div>
             </div>
+
+            <ItemList />
+
 
             <div class="container">
                 <div class="row mt-3">

@@ -5,10 +5,10 @@ export const PHOTOS_ERROR = 'PHOTOS_ERROR';
 export const PHOTOS_LOADED = 'PHOTOS_LOADED';
 
 
-export const loadPhotos = photo => ({
+/*export const loadPhotos = photo => ({
     type   : "FETCH_PHOTOS",
     payload: photo,
-});
+});*/
 
 /*export const loadPhotos = (filter, page) => (dispatch) => {
     dispatch({type: PHOTOS_FETCH, selectedFilter: filter});

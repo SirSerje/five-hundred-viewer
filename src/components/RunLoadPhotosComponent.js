@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import uuidv1 from "uuid";
 import { loadPhotos } from "../actions/loadPhotos";
-
+import { itemsFetchData } from '../actions/items';
 
 class RunLoadPhotosComponent extends Component {
     constructor() {
@@ -54,7 +54,7 @@ class RunLoadPhotosComponent extends Component {
 const mapDispatchToProps = dispatch => {
     console.log("RLPC: mapDispatchToProps");
     return {
-        loadPhotos: photo => dispatch(loadPhotos(photo))
+        loadItems: photo => dispatch(itemsFetchData(photo))
     };
 };
 
