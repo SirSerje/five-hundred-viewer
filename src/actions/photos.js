@@ -1,9 +1,4 @@
 import { fetchPhotos, fetchPhotoDetail } from '../data/api';
-import {itemsFetchDataSuccess} from "../actions/items";
-
-export const PHOTOS_FETCH = 'FETCH_PHOTOS';
-export const PHOTOS_ERROR = 'PHOTOS_ERROR';
-export const PHOTOS_LOADED = 'PHOTOS_LOADED';
 
 export const load_X_Photos = (page, NNN) => (dispatch) => {
 
@@ -11,7 +6,7 @@ export const load_X_Photos = (page, NNN) => (dispatch) => {
 
   let filter = ""; //TODO фильтр можно будет заменить на что то
 
-  dispatch({type: PHOTOS_FETCH, selectedFilter: filter});
+  dispatch({type: 'FETCH_PHOTOS', selectedFilter: filter});
   fetchPhotos(filter, page)
 
   .then(function(response){
@@ -24,9 +19,23 @@ export const load_X_Photos = (page, NNN) => (dispatch) => {
   });
 }
 
+
+export const add_X_to_FAVS = (NNN) => (dispatch) => {
+    console.log("add_X_to_FAVS ", NNN)
+    dispatch(FAVS_LOADDDED(NNN));
+}
+
+function FAVS_LOADDDED(MMM){
+    console.log("FAVS_LOADDDED",MMM);
+    return {
+        type: 'FAVORITES_ADDED',
+        favv_s: MMM,
+    }
+}
+
 function loadingError(message){
   return {
-    type: PHOTOS_ERROR,
+    type: 'PHOTOS_ERROR',
     message: message
   }
 }
@@ -34,7 +43,7 @@ function loadingError(message){
 function photosLoaded(photos, page, filter, MMM){
   console.log("photos loaded",MMM);
   return {
-    type: PHOTOS_LOADED,
+    type: 'PHOTOS_LOADED',
     photos: photos,
     page: page,
     selectedFilter: filter

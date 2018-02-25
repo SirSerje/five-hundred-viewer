@@ -5,8 +5,6 @@ class PhotoItem extends React.Component {
     componentDidMount() {
         this.setState({photo:this.props.image_source})
 
-        //console.log("!", this.state.photo)
-        console.log("!", this.props.image_source)
     }
 
     constructor() {
@@ -41,8 +39,7 @@ class PhotoItem extends React.Component {
                style={{"opacity":this.state.selected == 1 ? .5 : 1}}
                onClick= {this.photoClick}
            />
-
-           <p>[debug] selected: {this.state.selected}</p>
+           <p></p>{/*TODO rearrange this*/}
         </div>
         )
     }

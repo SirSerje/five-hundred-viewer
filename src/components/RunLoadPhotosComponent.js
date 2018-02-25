@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {load_X_Photos} from "../actions/photos";
+import {load_X_Photos, add_X_to_FAVS} from "../actions/photos";
 import PhotoItem from "../components/PhotoItem";
 
 
@@ -55,6 +55,12 @@ class RunLoadPhotosComponent extends Component {
             isHidden: !this.state.isHidden,
         });
         console.log(this.state.isHidden);
+
+let arr =[]
+        arr.push(this.props.photos[0]);
+        //arr.push(this.props.photos[1]);
+        this.props.add_FAVS(arr);
+
     }
 
     render() {
@@ -83,19 +89,22 @@ const Child = () => (
 );
 
 const mapStateToProps = (state) => {
-    console.log("mapStateToProps", state);
+    console.log("mapStateToProps", state.favorites);
     return {
         photos    : state.photos,
         page      : state.page,
         items     : state.items,
         hasErrored: state.itemsHasErrored,
         isLoading : state.itemsIsLoading,
+
+        favorites: state.favorites
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadPH: (page, photos) => dispatch(load_X_Photos(page, photos)),
+        add_FAVS: (favs) => dispatch(add_X_to_FAVS( favs)),
     };
 };
 

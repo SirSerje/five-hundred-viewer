@@ -1,8 +1,1 @@
 export const ADD_ARTICLE = "ADD_ARTICLE";
-
-export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
-export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
-
-export const PHOTOS_FETCH = 'FETCH_PHOTOS';
-export const PHOTOS_ERROR = 'PHOTOS_ERROR';
-export const PHOTOS_LOADED = 'PHOTOS_LOADED';

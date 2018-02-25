@@ -29,6 +29,19 @@ export function items(state = [], action) {
 }
 
 
+export function favorites(state = [], action) {
+    console.log("reducers - favorites");
+
+    switch (action.type) {
+        case 'FAVORITES_ADDED':
+            return action.favv_s;
+
+        default:
+            return state;
+    }
+}
+
+
 export function photos(state = [], action) {
     console.log("reducers - photos")
     switch (action.type) {
