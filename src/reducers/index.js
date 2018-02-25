@@ -1,12 +1,11 @@
 import {ADD_ARTICLE, PHOTOS_FETCH} from "../constants/action-types";
 import { combineReducers } from 'redux';
-import { items, itemsHasErrored, itemsIsLoading } from './items';
-import { loadPhotos } from '../actions/photos';
+import { items, itemsHasErrored, itemsIsLoading, photos } from './items';
 
 
 
 export  default combineReducers({
-    loadPhotos,
+    photos,
     items,
     itemsHasErrored,
     itemsIsLoading

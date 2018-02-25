@@ -27,3 +27,16 @@ export function items(state = [], action) {
             return state;
     }
 }
+
+
+export function photos(state = [], action) {
+    console.log("reducers - photos", action.photos, action.type)
+    switch (action.type) {
+        case 'PHOTOS_LOADED':
+            return action.photos;
+
+        default:
+            return state;
+    }
+}
+

@@ -7,7 +7,6 @@ import { Component } from 'react';
 
 class PhotoView extends Component {
     componentDidMount() {
-        console.log("TTT", this.props);
         this.props.fetchData('http://599167402df2f40011e4929a.mockapi.io/items');
     }
 

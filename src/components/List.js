@@ -2,7 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 
 const mapStateToProps = state => {
-    console.log("Стейт ту пропс из листа", state.articles)
     return {articles: state.articles};
 };
 const ConnectedList = ({articles}) => (

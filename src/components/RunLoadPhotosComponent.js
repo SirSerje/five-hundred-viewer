@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import uuidv1 from "uuid";
-import { loadPhotos } from "../actions/loadPhotos";
 import { itemsFetchData } from '../actions/items';
+import { load_X_Photos } from '../actions/photos';
+
 
 class RunLoadPhotosComponent extends Component {
     constructor() {
@@ -23,15 +24,13 @@ class RunLoadPhotosComponent extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const { title } = this.state;
-        const id = uuidv1();
-        this.props.loadPhotos({ title, id });
-        this.setState({ title:"" });
+        this.props.loadPH();
     }
 
     render() {
         const { title } = this.state;
         return (
+            <div>
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
@@ -47,20 +46,27 @@ class RunLoadPhotosComponent extends Component {
                     SAVE
                 </button>
             </form>
+                {console.log("RLPH render", this.props.photos)}
+                {console.log("RLPH render items", this.props.items)}
+            </div>
         );
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    console.log("RLPC: mapDispatchToProps");
+const mapStateToProps = (state) => {
+    console.log("mapStateToProps", state.photos)
     return {
-        loadItems: photo => dispatch(itemsFetchData(photo))
+        photos: state.photos,
+        items: state.items,
+        hasErrored: state.itemsHasErrored,
+        isLoading: state.itemsIsLoading
     };
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadPH: (url) => dispatch(load_X_Photos(1))
+    };
+};
 
-const Form = connect(null, mapDispatchToProps)(RunLoadPhotosComponent);
-
-
-
-export default Form;
+export default connect(mapStateToProps, mapDispatchToProps)(RunLoadPhotosComponent);
