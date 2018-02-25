@@ -19,13 +19,7 @@ export function itemsFetchDataSuccess(items) {
     };
 }
 
-export function photosFetchDataSuccess(photos) {
-    console.log("photosFetchDataSuccess", photos)
-    return {
-        type: 'PHOTOS_FETCH_DATA_SUCCESS',
-        photos
-    };
-}
+
 
 export function itemsFetchData(url) {
     console.log("itemsFetch", url)

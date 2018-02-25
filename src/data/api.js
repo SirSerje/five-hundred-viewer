@@ -9,7 +9,7 @@ export function fetchPhotos(filter, page){
         feature: filter,
         page: page || 1,
         consumer_key: CONSUMER_KEY,
-        image_size: 6,
+        image_size: 3,
         rpp: 50,
         exclude: "nude"
       }

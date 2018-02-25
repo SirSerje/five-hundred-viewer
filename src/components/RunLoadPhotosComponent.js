@@ -7,6 +7,10 @@ import { load_X_Photos } from '../actions/photos';
 
 
 class RunLoadPhotosComponent extends Component {
+    componentDidMount() {
+        this.props.loadPH();
+    }
+
     constructor() {
         super();
 
@@ -46,8 +50,11 @@ class RunLoadPhotosComponent extends Component {
                     SAVE
                 </button>
             </form>
-                {console.log("RLPH render", this.props.photos)}
-                {console.log("RLPH render items", this.props.items)}
+
+                {this.props.photos.map((item) => (
+                    <img src={item.image_url[0]} alt="default" class="img-thumbnail" />
+                ))}
+
             </div>
         );
     }
