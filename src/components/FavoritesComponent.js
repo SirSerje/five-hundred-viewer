@@ -1,8 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {reactLocalStorage} from "reactjs-localstorage";
 import PhotoItem from "../components/PhotoItem";
 
 class FavoritesComponent extends Component {
+
+    componentDidMount() {
+    }
+
     constructor() {
         super();
         this.state = {
@@ -12,10 +17,10 @@ class FavoritesComponent extends Component {
             toFvs     : [],
             reset     : 0,
             selections: [],
+            items     : {},
         };
 
         this.handler = this.handler.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleHidden = this.toggleHidden.bind(this);
     }
 
@@ -42,11 +47,6 @@ class FavoritesComponent extends Component {
         });
     }
 
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.props.loadPH(this.props.page + 1, this.props.photos);
-    }
 
     toggleHidden() {
         if (this.state.sum > 0) {
@@ -78,9 +78,9 @@ class FavoritesComponent extends Component {
                         Favourites X </button>                    }
                 </div>
 
-
                 <div class="row mt-3">
-                    {this.props.favorites.map((item, key) => (
+
+                    {JSON.parse(reactLocalStorage.getObject("favs")).map((item, key) => (
                         <PhotoItem slctd={this.state.selections[key]} id={key} handler={this.handler}
                                    image_source={item.photo}/>
 
@@ -88,6 +88,7 @@ class FavoritesComponent extends Component {
             </div>);
     }
 }
+{/*{this.props.favorites.map((item, key) => (*/}
 
 const mapStateToProps = (state) => {
     return {

@@ -1,4 +1,5 @@
 import {fetchPhotos} from "../data/api";
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 export const load_X_Photos = (page, NNN) => (dispatch) => {
 
@@ -17,6 +18,9 @@ export const load_X_Photos = (page, NNN) => (dispatch) => {
 
 
 export const add_X_to_FAVS = (NNN) => (dispatch) => {
+    if(NNN != undefined) {
+        reactLocalStorage.setObject('favs', JSON.stringify(NNN));
+    }
 
     dispatch(FAVS_LOADDDED(NNN));
 };

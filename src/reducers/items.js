@@ -1,3 +1,4 @@
+
 export function itemsHasErrored(state = false, action) {
     switch (action.type) {
         case "ITEMS_HAS_ERRORED":
@@ -29,21 +30,27 @@ export function items(state = [], action) {
 }
 
 /*var a = [];
-var b = 1;*/
+ var b = 1;*/
 export function favorites(state = [], action) {
-/*    if (a.length == 0 && action.favv_s) {
-        a[b] = action.favv_s[0];
-        b++;
-    }
-    if (action.favv_s) {
-        for (var i in a) {
-            if(action.favv_s[0].photo.image_url[0]== a[i].photo.image_url[0]) {
-                console.log("ITEM PRESENT")
-            }
-        }
-    }*/
+    /*    if (a.length == 0 && action.favv_s) {
+     a[b] = action.favv_s[0];
+     b++;
+     }
+     if (action.favv_s) {
+     for (var i in a) {
+     if(action.favv_s[0].photo.image_url[0]== a[i].photo.image_url[0]) {
+     console.log("ITEM PRESENT")
+     }
+     }
+     }*/
+
+
+
+
+
     switch (action.type) {
         case "FAVORITES_ADDED":
+            console.log("Отдаем фаворитов", action.favv_s);
             return action.favv_s;
 
         default:
