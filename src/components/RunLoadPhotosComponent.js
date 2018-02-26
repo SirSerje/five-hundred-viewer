@@ -20,17 +20,15 @@ class RunLoadPhotosComponent extends Component {
     }
 
 
-
-
     constructor() {
         super();
         this.state = {
-            title   : "",
-            selected: false,
-            sum     : 0,
-            toFvs   : [],
-            reset   : 0,
-            selections:[]
+            title     : "",
+            selected  : false,
+            sum       : 0,
+            toFvs     : [],
+            reset     : 0,
+            selections: [],
         };
 
         this.handler = this.handler.bind(this);
@@ -42,19 +40,16 @@ class RunLoadPhotosComponent extends Component {
     handler(e, one, selected, item) {
         e && e.preventDefault();
 
-
         if (item != undefined) {
             let a;
             if (selected) {
                 a = this.state.sum + 1;
                 this.state.toFvs.push(item);
             } else {
-                //console.log("DECREASE");
                 this.state.toFvs.splice(this.state.toFvs.indexOf(item), 1);
                 a = this.state.sum - 1;
             }
             this.setState({sum: a});
-            //console.log(this.state.toFvs);
         }
 
         var SR = this.state.selections;
@@ -73,24 +68,16 @@ class RunLoadPhotosComponent extends Component {
     toggleHidden() {
         //Дополнительная проверка
         if (this.state.sum > 0) {
-            //console.log("BEF UPDATE", this.state.selections);
-
             this.props.add_FAVS(this.state.toFvs);
-
+            this.setState({toFvs: []}, () => console.log("X : ", this.state.toFvs));
             this.setState({sum: 0});
-
+            //all disable
             var SR = this.state.selections;
             for (var i = 0; i < SR.length; i++) {
                 SR[i] = 0;
             }
             this.setState({selections: SR});
 
-            //TODO я не знаю как красивее очистить массив
-           while(this.state.toFvs.length!=0){
-                this.setState({toFvs:this.state.toFvs.splice(0, 1)})
-            }
-
-            //console.log("A ALL", this.state.selections, this.state.toFvs.length)
         }
     }
 
@@ -98,10 +85,12 @@ class RunLoadPhotosComponent extends Component {
         return (
             <div class="container">
                 <b>Top photo</b> <i>selected total : </i>{this.state.sum}
-
-                {this.state.sum > 0 && <button className="btn btn-success btn-sm" onClick={this.toggleHidden}>
-                    Favourites + </button>                    }
-
+                <div>
+                    {<button
+                        className={this.state.sum > 0 ? "btn btn-success btn-sm" : "btn btn-success disabled btn-sm"}
+                        onClick={this.toggleHidden}>
+                        Favourites + </button>                    }
+                </div>
 
                 <div class="row mt-3">
 
@@ -109,9 +98,7 @@ class RunLoadPhotosComponent extends Component {
                     {this.props.photos.map((item, key) => (
                         <PhotoItem slctd={this.state.selections[key]} id={key} handler={this.handler}
                                    image_source={item}/>
-
                     ))}
-
                 </div>
             </div>
         );

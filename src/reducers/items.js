@@ -1,6 +1,6 @@
 export function itemsHasErrored(state = false, action) {
     switch (action.type) {
-        case 'ITEMS_HAS_ERRORED':
+        case "ITEMS_HAS_ERRORED":
             return action.hasErrored;
 
         default:
@@ -10,7 +10,7 @@ export function itemsHasErrored(state = false, action) {
 
 export function itemsIsLoading(state = false, action) {
     switch (action.type) {
-        case 'ITEMS_IS_LOADING':
+        case "ITEMS_IS_LOADING":
             return action.isLoading;
 
         default:
@@ -20,7 +20,7 @@ export function itemsIsLoading(state = false, action) {
 
 export function items(state = [], action) {
     switch (action.type) {
-        case 'ITEMS_FETCH_DATA_SUCCESS':
+        case "ITEMS_FETCH_DATA_SUCCESS":
             return action.items;
 
         default:
@@ -28,12 +28,22 @@ export function items(state = [], action) {
     }
 }
 
-
+/*var a = [];
+var b = 1;*/
 export function favorites(state = [], action) {
-    //console.log("reducers - favorites");
-
+/*    if (a.length == 0 && action.favv_s) {
+        a[b] = action.favv_s[0];
+        b++;
+    }
+    if (action.favv_s) {
+        for (var i in a) {
+            if(action.favv_s[0].photo.image_url[0]== a[i].photo.image_url[0]) {
+                console.log("ITEM PRESENT")
+            }
+        }
+    }*/
     switch (action.type) {
-        case 'FAVORITES_ADDED':
+        case "FAVORITES_ADDED":
             return action.favv_s;
 
         default:
@@ -45,7 +55,7 @@ export function favorites(state = [], action) {
 export function photos(state = [], action) {
     //console.log("reducers - photos")
     switch (action.type) {
-        case 'PHOTOS_LOADED':
+        case "PHOTOS_LOADED":
             return action.photos;
 
         default:
@@ -56,7 +66,7 @@ export function photos(state = [], action) {
 export function page(state = [], action) {
     //console.log("reducers - page",  action.page)
     switch (action.type) {
-        case 'PHOTOS_LOADED':
+        case "PHOTOS_LOADED":
             return action.page;
 
         default:

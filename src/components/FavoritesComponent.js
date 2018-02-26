@@ -1,89 +1,91 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {add_X_to_FAVS} from "../actions/photos";
 import PhotoItem from "../components/PhotoItem";
-
 
 class FavoritesComponent extends Component {
     constructor() {
         super();
         this.state = {
-            title: "Favorites Component",
-            toFvs:[],
-            sum:0
-
-
+            title     : "",
+            selected  : false,
+            sum       : 0,
+            toFvs     : [],
+            reset     : 0,
+            selections: [],
         };
 
-
         this.handler = this.handler.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleHidden = this.toggleHidden.bind(this);
-
     }
 
 
+    handler(e, one, selected, item) {
+        e && e.preventDefault();
 
-    handler(e, one) {
-        e.preventDefault();
-
-        this.setState({showButton: !(one.selected)});
-
-
-        if(!(one.selected)) {
-            this.state.sum++
-            this.state.toFvs.push(one)
-        } else {
-            this.state.toFvs.splice(this.state.toFvs.indexOf(one),1)
-            this.state.sum--
-
+        item && console.log(item.photo);
+        if (item != undefined) {
+            let a;
+            if (selected) {
+                a = this.state.sum + 1;
+            } else {
+                this.state.toFvs.splice(this.state.toFvs.indexOf(item), 1);
+                a = this.state.sum - 1;
+            }
+            this.setState({sum: a});
         }
 
+        var SR = this.state.selections;
+        SR[one] = selected;
+        this.setState({
+            selections: SR,
+        });
+    }
+
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.loadPH(this.props.page + 1, this.props.photos);
     }
 
     toggleHidden() {
-        this.setState({
-            isHidden: !this.state.isHidden,
-        });
+        if (this.state.sum > 0) {
+            console.log("Отправляем", this.state.toFvs);
+            /*this.props.rmv_F_FAVS(this.state.toFvs);*/
+            console.log("!", this.state.selections);
+            console.log("+", this.state.toFvs); // <<<< тут храниться индекс того что надо выпилить
 
 
-        //arr.push(this.props.photos[1]);
-        if(this.state.sum > 0) {
-        this.props.add_FAVS(this.state.toFvs);
+            this.setState({sum: 0});
+
+            var SR = this.state.selections;
+            for (var i = 0; i < SR.length; i++) {
+                SR[i] = 0;
+            }
+            this.setState({selections: SR});
         }
-
     }
 
     render() {
         return (
             <div class="container">
-                <b>Favorite photo</b> <i>selected total : </i>{this.state.sum}
+                <b>Top photo</b> <i>selected total : </i>{this.state.sum}
 
 
-
-
-
-                    {
-                        this.state.sum > 0 &&
-                        <button
-                            className="btn btn-danger btn-sm"
-                            onClick={this.toggleHidden}>
-                            Favourites X
-                        </button>
-                    }
-
+                <div>
+                    {<button className={this.state.sum > 0 ? "btn btn-danger btn-sm" : "btn btn-danger disabled btn-sm"}
+                             onClick={this.toggleHidden}>
+                        Favourites X </button>                    }
+                </div>
 
 
                 <div class="row mt-3">
+                    {this.props.favorites.map((item, key) => (
+                        <PhotoItem slctd={this.state.selections[key]} id={key} handler={this.handler}
+                                   image_source={item.photo}/>
 
-                     {this.props.favorites.map((item) => (
-                     <PhotoItem handler={this.handler} image_source={item.photo}/>
-                    ))}
-
-
-
-                </div>
-            </div>
-        );
+                    ))}</div>
+            </div>);
     }
 }
 
@@ -95,7 +97,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        add_FAVS: (favs) => dispatch(add_X_to_FAVS(favs)),
         //rmv_F_FAVS: (favs) => dispatch(rm_v_f(favs))
     };
 };
