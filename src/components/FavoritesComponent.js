@@ -27,7 +27,7 @@ class FavoritesComponent extends Component {
         e.preventDefault();
 
         this.setState({showButton: !(one.selected)});
-        console.log("!!!", one.selected)
+
 
         if(!(one.selected)) {
             this.state.sum++
@@ -44,7 +44,7 @@ class FavoritesComponent extends Component {
         this.setState({
             isHidden: !this.state.isHidden,
         });
-        console.log(this.state.isHidden);
+
 
         //arr.push(this.props.photos[1]);
         if(this.state.sum > 0) {

@@ -30,7 +30,7 @@ export function items(state = [], action) {
 
 
 export function favorites(state = [], action) {
-    console.log("reducers - favorites");
+    //console.log("reducers - favorites");
 
     switch (action.type) {
         case 'FAVORITES_ADDED':
@@ -43,7 +43,7 @@ export function favorites(state = [], action) {
 
 
 export function photos(state = [], action) {
-    console.log("reducers - photos")
+    //console.log("reducers - photos")
     switch (action.type) {
         case 'PHOTOS_LOADED':
             return action.photos;
@@ -54,7 +54,7 @@ export function photos(state = [], action) {
 }
 
 export function page(state = [], action) {
-    console.log("reducers - page",  action.page)
+    //console.log("reducers - page",  action.page)
     switch (action.type) {
         case 'PHOTOS_LOADED':
             return action.page;

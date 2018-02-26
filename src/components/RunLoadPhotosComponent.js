@@ -9,15 +9,18 @@ class RunLoadPhotosComponent extends Component {
     componentDidMount() {
         this.props.loadPH(this.props.page);
 
-        console.log("component did mount", this.props.page);
+        //console.log("component did mount", this.props.page);
 
         window.addEventListener("scroll", (e) => {
             if (document.body.scrollHeight < (window.innerHeight + e.pageY)) {
-                console.log("OVERSCROLL!", this.props.page + 1); //TODO пофиксить работу props.page
+                //console.log("OVERSCROLL!", this.props.page + 1); //TODO пофиксить работу props.page
                 this.props.loadPH(this.props.page + 1, this.props.photos);
             }
         });
     }
+
+
+
 
     constructor() {
         super();
@@ -27,6 +30,7 @@ class RunLoadPhotosComponent extends Component {
             sum     : 0,
             toFvs   : [],
             reset   : 0,
+            selections:[]
         };
 
         this.handler = this.handler.bind(this);
@@ -34,20 +38,30 @@ class RunLoadPhotosComponent extends Component {
         this.toggleHidden = this.toggleHidden.bind(this);
     }
 
-    handler(e, one, selected) {
+
+    handler(e, one, selected, item) {
         e && e.preventDefault();
 
-        let a;
-        console.log(selected);
-        if (selected) {
-            a = this.state.sum + 1;
-            this.state.toFvs.push(one);
-        } else {
-            this.state.toFvs.splice(this.state.toFvs.indexOf(one), 1);
-            a = this.state.sum - 1;
+
+        if (item != undefined) {
+            let a;
+            if (selected) {
+                a = this.state.sum + 1;
+                this.state.toFvs.push(item);
+            } else {
+                //console.log("DECREASE");
+                this.state.toFvs.splice(this.state.toFvs.indexOf(item), 1);
+                a = this.state.sum - 1;
+            }
+            this.setState({sum: a});
+            //console.log(this.state.toFvs);
         }
-        this.setState({sum: a});
-        console.log(this.state.sum);
+
+        var SR = this.state.selections;
+        SR[one] = selected;
+        this.setState({
+            selections: SR,
+        });
     }
 
 
@@ -59,13 +73,25 @@ class RunLoadPhotosComponent extends Component {
     toggleHidden() {
         //Дополнительная проверка
         if (this.state.sum > 0) {
-            this.props.add_FAVS(this.state.toFvs);
-            this.setState({sum: 0});
-        }
-    }
+            //console.log("BEF UPDATE", this.state.selections);
 
-    click(index) {
-        this.setState({active: index});
+            this.props.add_FAVS(this.state.toFvs);
+
+            this.setState({sum: 0});
+
+            var SR = this.state.selections;
+            for (var i = 0; i < SR.length; i++) {
+                SR[i] = 0;
+            }
+            this.setState({selections: SR});
+
+            //TODO я не знаю как красивее очистить массив
+           while(this.state.toFvs.length!=0){
+                this.setState({toFvs:this.state.toFvs.splice(0, 1)})
+            }
+
+            //console.log("A ALL", this.state.selections, this.state.toFvs.length)
+        }
     }
 
     render() {
@@ -78,10 +104,14 @@ class RunLoadPhotosComponent extends Component {
 
 
                 <div class="row mt-3">
+
+
                     {this.props.photos.map((item, key) => (
-                        <PhotoItem id={key} handler={this.handler} image_source={item}/>
+                        <PhotoItem slctd={this.state.selections[key]} id={key} handler={this.handler}
+                                   image_source={item}/>
 
                     ))}
+
                 </div>
             </div>
         );
@@ -89,7 +119,7 @@ class RunLoadPhotosComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("mapStateToProps", state.favorites);
+    //console.log("mapStateToProps", state.favorites);
     return {
         photos: state.photos,
         page  : state.page,
