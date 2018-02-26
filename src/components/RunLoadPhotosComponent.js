@@ -22,12 +22,11 @@ class RunLoadPhotosComponent extends Component {
     constructor() {
         super();
         this.state = {
-            title     : "",
-            selected  : false,
-            showButton: false,
-            isHidden  : true,
-            sum       : 0,
-            toFvs     : [],
+            title   : "",
+            selected: false,
+            sum     : 0,
+            toFvs   : [],
+            reset   : 0,
         };
 
         this.handler = this.handler.bind(this);
@@ -36,23 +35,19 @@ class RunLoadPhotosComponent extends Component {
     }
 
     handler(e, one, selected) {
-        //Проверка на нулл
         e && e.preventDefault();
 
-
-        this.setState({showButton: !(one.selected)});
-
-
-        if (!(one.selected)) {
-            this.state.sum++;
+        let a;
+        console.log(selected);
+        if (selected) {
+            a = this.state.sum + 1;
             this.state.toFvs.push(one);
-            console.log(this.state.toFvs);
         } else {
             this.state.toFvs.splice(this.state.toFvs.indexOf(one), 1);
-            this.state.sum--;
-            console.log(this.state.toFvs);
-
+            a = this.state.sum - 1;
         }
+        this.setState({sum: a});
+        console.log(this.state.sum);
     }
 
 
@@ -62,24 +57,15 @@ class RunLoadPhotosComponent extends Component {
     }
 
     toggleHidden() {
-        this.setState({
-            isHidden: !this.state.isHidden,
-        });
-        console.log(this.state.isHidden);
-
         //Дополнительная проверка
         if (this.state.sum > 0) {
             this.props.add_FAVS(this.state.toFvs);
-
             this.setState({sum: 0});
-
-            {
-                this.state.toFvs.map((item) => (
-                    this.handler(null, item, 1)
-
-                ));
-            }
         }
+    }
+
+    click(index) {
+        this.setState({active: index});
     }
 
     render() {
@@ -93,7 +79,7 @@ class RunLoadPhotosComponent extends Component {
 
                 <div class="row mt-3">
                     {this.props.photos.map((item, key) => (
-                        <PhotoItem  id={key} handler={this.handler} image_source={item}/>
+                        <PhotoItem id={key} handler={this.handler} image_source={item}/>
 
                     ))}
                 </div>
