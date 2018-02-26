@@ -9,29 +9,71 @@ class FavoritesComponent extends Component {
         super();
         this.state = {
             title: "Favorites Component",
+            toFvs:[],
+            sum:0
+
+
         };
 
+
         this.handler = this.handler.bind(this);
+        this.toggleHidden = this.toggleHidden.bind(this);
 
     }
 
+
+
     handler(e, one) {
         e.preventDefault();
-        console.log("NOT IMPLEMENTED NOW");
+
+        this.setState({showButton: !(one.selected)});
+        console.log("!!!", one.selected)
+
+        if(!(one.selected)) {
+            this.state.sum++
+            this.state.toFvs.push(one)
+        } else {
+            this.state.toFvs.splice(this.state.toFvs.indexOf(one),1)
+            this.state.sum--
+
+        }
+
+    }
+
+    toggleHidden() {
+        this.setState({
+            isHidden: !this.state.isHidden,
+        });
+        console.log(this.state.isHidden);
+
+        //arr.push(this.props.photos[1]);
+        if(this.state.sum > 0) {
+        this.props.add_FAVS(this.state.toFvs);
+        }
+
     }
 
     render() {
         return (
             <div class="container">
-                {/*     {this.state.sum}
-                 <div>
-                 {this.state.sum > 0 && <button className="btn btn-warning" onClick={this.toggleHidden}>
-                 Favourites -> </button>                    }
-                 </div>*/}
+                <b>Favorite photo</b> <i>selected total : </i>{this.state.sum}
+
+
+
+
+
+                    {
+                        this.state.sum > 0 &&
+                        <button
+                            className="btn btn-danger btn-sm"
+                            onClick={this.toggleHidden}>
+                            Favourites X
+                        </button>
+                    }
+
 
 
                 <div class="row mt-3">
-                    {console.log("++++------>",this.props.favorites)}
 
                      {this.props.favorites.map((item) => (
                      <PhotoItem handler={this.handler} image_source={item.photo}/>

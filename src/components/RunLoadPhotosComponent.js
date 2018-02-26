@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {load_X_Photos, add_X_to_FAVS} from "../actions/photos";
+import {add_X_to_FAVS, load_X_Photos} from "../actions/photos";
 import PhotoItem from "../components/PhotoItem";
 
 
@@ -26,8 +26,8 @@ class RunLoadPhotosComponent extends Component {
             selected  : false,
             showButton: false,
             isHidden  : true,
-            sum:0,
-            toFvs:[]
+            sum       : 0,
+            toFvs     : [],
         };
 
         this.handler = this.handler.bind(this);
@@ -35,25 +35,26 @@ class RunLoadPhotosComponent extends Component {
         this.toggleHidden = this.toggleHidden.bind(this);
     }
 
-    handler(e, one) {
-        e.preventDefault();
+    handler(e, one, selected) {
+        //Проверка на нулл
+        e && e.preventDefault();
+
 
         this.setState({showButton: !(one.selected)});
 
 
-        if(!(one.selected)) {
-         this.state.sum++
-            this.state.toFvs.push(one)
-            console.log(this.state.toFvs)
+        if (!(one.selected)) {
+            this.state.sum++;
+            this.state.toFvs.push(one);
+            console.log(this.state.toFvs);
         } else {
-            this.state.toFvs.splice(this.state.toFvs.indexOf(one),1)
-            this.state.sum--
-            console.log(this.state.toFvs)
+            this.state.toFvs.splice(this.state.toFvs.indexOf(one), 1);
+            this.state.sum--;
+            console.log(this.state.toFvs);
 
         }
-
-
     }
+
 
     handleSubmit(event) {
         event.preventDefault();
@@ -66,25 +67,33 @@ class RunLoadPhotosComponent extends Component {
         });
         console.log(this.state.isHidden);
 
-        //arr.push(this.props.photos[1]);
-        this.props.add_FAVS(this.state.toFvs);
+        //Дополнительная проверка
+        if (this.state.sum > 0) {
+            this.props.add_FAVS(this.state.toFvs);
 
+            this.setState({sum: 0});
+
+            {
+                this.state.toFvs.map((item) => (
+                    this.handler(null, item, 1)
+
+                ));
+            }
+        }
     }
 
     render() {
         return (
             <div class="container">
-                {this.state.sum}
-                <div>
-                    {this.state.sum > 0 && <button className="btn btn-warning" onClick={this.toggleHidden}>
-                        Favourites -> </button>                    }
-                </div>
+                <b>Top photo</b> <i>selected total : </i>{this.state.sum}
+
+                {this.state.sum > 0 && <button className="btn btn-success btn-sm" onClick={this.toggleHidden}>
+                    Favourites + </button>                    }
 
 
                 <div class="row mt-3">
-                    {this.props.photos.map((item) => (
-
-                        <PhotoItem handler={this.handler} image_source={item}/>
+                    {this.props.photos.map((item, key) => (
+                        <PhotoItem  id={key} handler={this.handler} image_source={item}/>
 
                     ))}
                 </div>
@@ -92,27 +101,26 @@ class RunLoadPhotosComponent extends Component {
         );
     }
 }
-const Child = () => (
-    <p>Hello, World!</p>
-);
 
 const mapStateToProps = (state) => {
     console.log("mapStateToProps", state.favorites);
     return {
-        photos    : state.photos,
-        page      : state.page,
-        items     : state.items,
+        photos: state.photos,
+        page  : state.page,
+
+        items: state.items,
+
+        favorites: state.favorites,
+
         hasErrored: state.itemsHasErrored,
         isLoading : state.itemsIsLoading,
-
-        favorites: state.favorites
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadPH: (page, photos) => dispatch(load_X_Photos(page, photos)),
-        add_FAVS: (favs) => dispatch(add_X_to_FAVS( favs)),
+        loadPH  : (page, photos) => dispatch(load_X_Photos(page, photos)),
+        add_FAVS: (favs) => dispatch(add_X_to_FAVS(favs)),
     };
 };
 

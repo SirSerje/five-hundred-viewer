@@ -3,7 +3,7 @@ import React from "react";
 class PhotoItem extends React.Component {
 
     componentDidMount() {
-        this.setState({photo:this.props.image_source})
+        this.setState({photo:this.props.image_source, id:this.props.id})
 
     }
 
@@ -12,8 +12,9 @@ class PhotoItem extends React.Component {
 
         this.state = {
             title:"",
-            selected:0,
+            selected:false,
             photo:"",
+            id:-1
         };
 
         this.photoClick= this.photoClick.bind(this);
@@ -23,7 +24,7 @@ class PhotoItem extends React.Component {
 
         event.preventDefault();
 
-        this.setState({selected: this.state.selected == 0 ? 1 : 0})
+        this.setState({selected: !this.state.selected})
         this.props.handler(event, this.state)
     }
         render() {
@@ -36,10 +37,10 @@ class PhotoItem extends React.Component {
                src={this.state.photo.image_url}
                alt="default"
                class="img-thumbnail"
-               style={{"opacity":this.state.selected == 1 ? .5 : 1}}
+               style={{"opacity":this.state.selected == true ? .5 : 1}}
                onClick= {this.photoClick}
            />
-           <p></p>{/*TODO rearrange this*/}
+           <p> id: {this.state.id}  selected: {this.state.selected}</p>{/*TODO rearrange this*/}
         </div>
         )
     }
