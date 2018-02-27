@@ -5,7 +5,7 @@ import PhotoItem from "../components/PhotoItem";
 import {isEmptyObject} from "../utils/utils"
 
 
-import {ld_fvs} from "../actions/photos";
+import {ld_fvs, rmv_F_FAVS} from "../actions/photos";
 
 
 class FavoritesComponent extends Component {
@@ -13,14 +13,13 @@ class FavoritesComponent extends Component {
     componentDidMount() {
                 //TODO выполнить loadFavs
         this.props.load_XM_fAvs;
-        console.log("Вызываем загрузку фаворитов при открытии вкладки")
     }
 
     constructor() {
         super();
         this.state = {
             title     : "",
-            selected  : false,
+           // selected  : false,
             sum       : 0,
             toFvs     : [],
             reset     : 0,
@@ -36,11 +35,11 @@ class FavoritesComponent extends Component {
     handler(e, one, selected, item) {
         e && e.preventDefault();
 
-        item && console.log(item.photo);
         if (item != undefined) {
             let a;
             if (selected) {
                 a = this.state.sum + 1;
+                this.state.toFvs.push(item);
             } else {
                 this.state.toFvs.splice(this.state.toFvs.indexOf(item), 1);
                 a = this.state.sum - 1;
@@ -58,15 +57,10 @@ class FavoritesComponent extends Component {
 
     toggleHidden() {
         if (this.state.sum > 0) {
-            console.log("Отправляем", this.state.toFvs);
-            /*this.props.rmv_F_FAVS(this.state.toFvs);*/
-            //TODO тут вызывать remove или апдейт фаворитов
-            console.log("!", this.state.selections);
-            console.log("+", this.state.toFvs); // <<<< тут храниться индекс того что надо выпилить
-
-
+            this.props.rmFS(this.state.toFvs);
+            this.setState({toFvs: []}, () => console.log("X : ", this.state.toFvs));
             this.setState({sum: 0});
-
+            //all disable
             var SR = this.state.selections;
             for (var i = 0; i < SR.length; i++) {
                 SR[i] = 0;
@@ -76,7 +70,6 @@ class FavoritesComponent extends Component {
     }
 
     render() {
-        console.log("[FavoritesComponent RENDER]: ", this.props.favorites)
         return (
             <div class="container">
                 <b>Top photo</b> <i>selected total : </i>{this.state.sum}
@@ -111,7 +104,7 @@ const mapDispatchToProps = (dispatch) => {
         //TODO подумать, смотреть ниже:
         //Возможно add_to_favorites и remove_from_favorites сделать одинм
         //и апдейтить просто в нем локал сторедж
-        //rmv_F_FAVS: (favs) => dispatch(rm_v_f(favs))
+        rmFS: (favs) => dispatch(rmv_F_FAVS(favs)),
         load_XM_fAvs: dispatch(ld_fvs()),
 
       //  add_FAVS: (favs) => dispatch(add_X_to_FAVS(favs)),

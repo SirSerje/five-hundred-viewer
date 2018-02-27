@@ -24,7 +24,7 @@ class RunLoadPhotosComponent extends Component {
         super();
         this.state = {
             title     : "",
-            selected  : false,
+            //selected  : false,
             sum       : 0,
             toFvs     : [],
             reset     : 0,

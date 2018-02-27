@@ -55,6 +55,35 @@ function restoreEmpty(message) {
 }
 
 
+function FAVS_ADDED(MMM) {
+    return {
+        type: "FAVORITES_ADDED",
+        favv_s: MMM,
+    };
+}
+
+export const rmv_F_FAVS = (XCX) => (dispatch) => {
+    let localStorageItems = reactLocalStorage.getObject("favorites");
+    let storagedItems;
+    if (!isEmptyObject(localStorageItems)) {
+        storagedItems = favoritesRestored(JSON.parse(localStorageItems)).restored_favs;
+
+    }
+
+
+    let finalData;
+
+
+    //Пакуем что вышло и сохраняем
+    finalData= _.drop(storagedItems)
+
+    a=>reactLocalStorage.setObject("favorites", JSON.stringify(finalData));
+
+    dispatch(FAVS_ADDED(finalData));
+
+
+}
+
 export const add_X_to_FAVS = (NNN) => (dispatch) => {
 
     let localStorageItems = reactLocalStorage.getObject("favorites");
@@ -67,7 +96,7 @@ export const add_X_to_FAVS = (NNN) => (dispatch) => {
     let finalData = NNN;
     if (NNN != undefined && !isEmptyObject(NNN) && storagedItems != undefined) {
         finalData = NNN.concat(storagedItems.restored_favs)
-        finalData = _.uniqBy(finalData, v=>v.photo.image_url[0]);
+        finalData = _.uniqBy(finalData, v => v.photo.image_url[0]);
     }
 
 
@@ -78,13 +107,6 @@ export const add_X_to_FAVS = (NNN) => (dispatch) => {
 
     dispatch(FAVS_ADDED(finalData));
 };
-
-function FAVS_ADDED(MMM) {
-    return {
-        type: "FAVORITES_ADDED",
-        favv_s: MMM,
-    };
-}
 
 function loadingError(message) {
     return {

@@ -10,7 +10,7 @@ class PhotoItem extends React.Component {
         super();
         this.state = {
             title   : "",
-            selected: 0,
+           // selected: 0,
             photo   : "",
             id      : -1,
         };
@@ -19,7 +19,7 @@ class PhotoItem extends React.Component {
 
     photoClick(event) {
         event && event.preventDefault();
-        this.setState({selected: this.props.slctd == 0 ? 1 : 0});
+        // this.setState({selected: this.props.slctd == 0 ? 1 : 0});
         this.props.handler(event, this.props.id, this.props.slctd == 0 ? 1 : 0, this.state);
     }
 
