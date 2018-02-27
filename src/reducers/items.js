@@ -32,32 +32,15 @@ export function items(state = [], action) {
 /*var a = [];
  var b = 1;*/
 export function favorites(state = [], action) {
-    /*    if (a.length == 0 && action.favv_s) {
-     a[b] = action.favv_s[0];
-     b++;
-     }
-     if (action.favv_s) {
-     for (var i in a) {
-     if(action.favv_s[0].photo.image_url[0]== a[i].photo.image_url[0]) {
-     console.log("ITEM PRESENT")
-     }
-     }
-     }*/
-
-
-
 
 
     switch (action.type) {
         case "RESTORE_EMPTY":
-            console.log("В редьюсере пусто, отдаем ничего");
             return {};
         case "FAVORITES_RESTORED":
-            console.log("Данные загружены из LocalStorage");
-            return action.restored_favs;
+            return action.fvs;
         case "FAVORITES_ADDED":
-            console.log("Отдаем фаворитов", action.favv_s);
-            return action.favv_s;
+            return action.fvs
 
         default:
             return state;
@@ -66,7 +49,6 @@ export function favorites(state = [], action) {
 
 
 export function photos(state = [], action) {
-    //console.log("reducers - photos")
     switch (action.type) {
         case "PHOTOS_LOADED":
             return action.photos;
@@ -77,7 +59,6 @@ export function photos(state = [], action) {
 }
 
 export function page(state = [], action) {
-    //console.log("reducers - page",  action.page)
     switch (action.type) {
         case "PHOTOS_LOADED":
             return action.page;

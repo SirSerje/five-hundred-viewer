@@ -5,10 +5,8 @@ import _ from 'lodash'
 
 export const load_X_Photos = (page, NNN) => (dispatch) => {
 
-    //{console.log("LOAD PHOTOS", page)}
 
     let filter = ""; //TODO фильтр можно будет заменить на что то
-
     dispatch({type: "FETCH_PHOTOS", selectedFilter: filter});
     fetchPhotos(filter, page).then(function (response) {
         dispatch(photosLoaded(NNN != undefined ? NNN.concat(response.data.photos) : response.data.photos, response.data.current_page, filter, NNN));
@@ -36,7 +34,7 @@ export const ld_fvs = (DATA) => (dispatch) => {
 function favoritesRestored(value) {
     return {
         type: "FAVORITES_RESTORED",
-        restored_favs: value,
+        fvs: value,
     };
 }
 //Если произошла ошибка при загрузке. Не уверен, что так может быть
@@ -58,7 +56,14 @@ function restoreEmpty(message) {
 function FAVS_ADDED(MMM) {
     return {
         type: "FAVORITES_ADDED",
-        favv_s: MMM,
+        fvs: MMM,
+    };
+}
+
+function FVS_REMOVED(MMM) {
+    return {
+        type: "FAVORITES_ADDED",
+        fvs: MMM,
     };
 }
 
@@ -66,37 +71,25 @@ export const rmv_F_FAVS = (XCX) => (dispatch) => {
     let localStorageItems = reactLocalStorage.getObject("favorites");
     let storagedItems;
     if (!isEmptyObject(localStorageItems)) {
-        storagedItems = favoritesRestored(JSON.parse(localStorageItems)).restored_favs;
-
+        storagedItems = JSON.parse(localStorageItems);
+        var result = _.differenceBy(storagedItems, XCX, v => v.image_url[0]);
+        reactLocalStorage.setObject("favorites", JSON.stringify(result));
+        dispatch(FVS_REMOVED(result));
     }
-
-
-    let finalData;
-
-
-    //Пакуем что вышло и сохраняем
-    finalData= _.drop(storagedItems)
-
-    a=>reactLocalStorage.setObject("favorites", JSON.stringify(finalData));
-
-    dispatch(FAVS_ADDED(finalData));
-
-
 }
 
 export const add_X_to_FAVS = (NNN) => (dispatch) => {
-
     let localStorageItems = reactLocalStorage.getObject("favorites");
     let storagedItems;
     if (!isEmptyObject(localStorageItems)) {
-        storagedItems = favoritesRestored(JSON.parse(localStorageItems));
-
+        storagedItems = JSON.parse(localStorageItems);
+        favoritesRestored(storagedItems)
     }
 
     let finalData = NNN;
     if (NNN != undefined && !isEmptyObject(NNN) && storagedItems != undefined) {
-        finalData = NNN.concat(storagedItems.restored_favs)
-        finalData = _.uniqBy(finalData, v => v.photo.image_url[0]);
+        finalData = NNN.concat(storagedItems)
+        finalData = _.uniqBy(finalData, v => v.image_url[0]);
     }
 
 

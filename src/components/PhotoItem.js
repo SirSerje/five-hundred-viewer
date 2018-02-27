@@ -8,32 +8,25 @@ class PhotoItem extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-            title   : "",
-           // selected: 0,
-            photo   : "",
-            id      : -1,
-        };
         this.photoClick = this.photoClick.bind(this);
     }
 
     photoClick(event) {
         event && event.preventDefault();
-        // this.setState({selected: this.props.slctd == 0 ? 1 : 0});
-        this.props.handler(event, this.props.id, this.props.slctd == 0 ? 1 : 0, this.state);
+        this.props.handler(event, this.props.id, this.props.slctd == 0 ? 1 : 0, this.props);
     }
 
     render() {
         return (
             <div className="col-md-4">
                 <img
-                    src={this.state.photo.image_url}
+                    src={this.props.image_source.image_url[0]}
                     alt="default"
                     class="img-thumbnail"
                     style={{"opacity": this.props.slctd == 1 ? .5 : 1}}
                     onClick={this.photoClick}
                 />
-                <p> id: {this.state.id} selected: {this.props.slctd}</p>
+                <p> id: {this.props.id} selected: {this.props.slctd}</p>
             </div>
         );
     }

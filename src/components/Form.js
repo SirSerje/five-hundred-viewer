@@ -5,7 +5,7 @@ import uuidv1 from "uuid";
 import { addArticle } from "../actions/addArticle";
 
 const mapDispatchToProps = dispatch => {
-    //console.log("ДИСПАЧ АРТИКЛА ИЗ ФОРМЫ");
+
     return {
         addArticle: article => dispatch(addArticle(article))
     };
