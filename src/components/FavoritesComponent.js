@@ -2,10 +2,18 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {reactLocalStorage} from "reactjs-localstorage";
 import PhotoItem from "../components/PhotoItem";
+import {isEmptyObject} from "../utils/utils"
+
+
+import {ld_fvs} from "../actions/photos";
+
 
 class FavoritesComponent extends Component {
 
     componentDidMount() {
+                //TODO выполнить loadFavs
+        this.props.load_XM_fAvs;
+        console.log("Вызываем загрузку фаворитов при открытии вкладки")
     }
 
     constructor() {
@@ -52,6 +60,7 @@ class FavoritesComponent extends Component {
         if (this.state.sum > 0) {
             console.log("Отправляем", this.state.toFvs);
             /*this.props.rmv_F_FAVS(this.state.toFvs);*/
+            //TODO тут вызывать remove или апдейт фаворитов
             console.log("!", this.state.selections);
             console.log("+", this.state.toFvs); // <<<< тут храниться индекс того что надо выпилить
 
@@ -67,6 +76,7 @@ class FavoritesComponent extends Component {
     }
 
     render() {
+        console.log("[FavoritesComponent RENDER]: ", this.props.favorites)
         return (
             <div class="container">
                 <b>Top photo</b> <i>selected total : </i>{this.state.sum}
@@ -80,7 +90,7 @@ class FavoritesComponent extends Component {
 
                 <div class="row mt-3">
 
-                    {JSON.parse(reactLocalStorage.getObject("favs")).map((item, key) => (
+                    {!isEmptyObject(this.props.favorites) && this.props.favorites.map((item, key) =>  (
                         <PhotoItem slctd={this.state.selections[key]} id={key} handler={this.handler}
                                    image_source={item.photo}/>
 
@@ -88,7 +98,6 @@ class FavoritesComponent extends Component {
             </div>);
     }
 }
-{/*{this.props.favorites.map((item, key) => (*/}
 
 const mapStateToProps = (state) => {
     return {
@@ -98,7 +107,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        //TODO реализовать удаление из фавориов
+        //TODO подумать, смотреть ниже:
+        //Возможно add_to_favorites и remove_from_favorites сделать одинм
+        //и апдейтить просто в нем локал сторедж
         //rmv_F_FAVS: (favs) => dispatch(rm_v_f(favs))
+        load_XM_fAvs: dispatch(ld_fvs()),
+
+      //  add_FAVS: (favs) => dispatch(add_X_to_FAVS(favs)),
     };
 };
 

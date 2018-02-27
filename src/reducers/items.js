@@ -49,6 +49,12 @@ export function favorites(state = [], action) {
 
 
     switch (action.type) {
+        case "RESTORE_EMPTY":
+            console.log("В редьюсере пусто, отдаем ничего");
+            return {};
+        case "FAVORITES_RESTORED":
+            console.log("Данные загружены из LocalStorage");
+            return action.restored_favs;
         case "FAVORITES_ADDED":
             console.log("Отдаем фаворитов", action.favv_s);
             return action.favv_s;
