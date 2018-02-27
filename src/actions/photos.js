@@ -1,6 +1,7 @@
 import {reactLocalStorage} from "reactjs-localstorage";
 import {fetchPhotos} from "../data/api";
 import {isEmptyObject} from "../utils/utils";
+import _ from 'lodash'
 
 export const load_X_Photos = (page, NNN) => (dispatch) => {
 
@@ -34,56 +35,69 @@ export const ld_fvs = (DATA) => (dispatch) => {
 
 function favoritesRestored(value) {
     return {
-        type         : "FAVORITES_RESTORED",
+        type: "FAVORITES_RESTORED",
         restored_favs: value,
     };
 }
 //Если произошла ошибка при загрузке. Не уверен, что так может быть
 function restoreError(message) {
     return {
-        type   : "RESTORE_FAILED",
+        type: "RESTORE_FAILED",
         message: "RESTORING FAVORITES FAILED, ERROR:" + message,
     };
 }
 //Если хранилище фаворитов пусто
 function restoreEmpty(message) {
     return {
-        type   : "RESTORE_EMPTY",
+        type: "RESTORE_EMPTY",
         message: message, //TODO надо параметр с брошенной ошибки
     };
 }
 
 
-//TODO Тут обработаем доставание и складывание в фавориты
 export const add_X_to_FAVS = (NNN) => (dispatch) => {
-    if (NNN != undefined) {
-        reactLocalStorage.setObject("favorites", JSON.stringify(NNN));
+
+    let localStorageItems = reactLocalStorage.getObject("favorites");
+    let storagedItems;
+    if (!isEmptyObject(localStorageItems)) {
+        storagedItems = favoritesRestored(JSON.parse(localStorageItems));
+
     }
-    //TODO добавить проверку на уже сувществующие элементы в сторе
+
+    let finalData = NNN;
+    if (NNN != undefined && !isEmptyObject(NNN) && storagedItems != undefined) {
+        finalData = NNN.concat(storagedItems.restored_favs)
+        finalData = _.uniqBy(finalData, v=>v.photo.image_url[0]);
+    }
 
 
-    dispatch(FAVS_ADDED(NNN));
+    //Пакуем что вышло и сохраняем
+    if (finalData != undefined && !isEmptyObject(finalData)) {
+        reactLocalStorage.setObject("favorites", JSON.stringify(finalData));
+    }
+
+    dispatch(FAVS_ADDED(finalData));
 };
 
 function FAVS_ADDED(MMM) {
     return {
-        type  : "FAVORITES_ADDED",
+        type: "FAVORITES_ADDED",
         favv_s: MMM,
     };
 }
 
 function loadingError(message) {
     return {
-        type   : "PHOTOS_ERROR",
+        type: "PHOTOS_ERROR",
         message: message,
     };
 }
 
 function photosLoaded(photos, page, filter, MMM) {
     return {
-        type          : "PHOTOS_LOADED",
-        photos        : photos,
-        page          : page,
+        type: "PHOTOS_LOADED",
+        photos: photos,
+        page: page,
         selectedFilter: filter,
     };
 }
