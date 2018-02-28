@@ -1,17 +1,16 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {add_X_to_FAVS, load_X_Photos} from "../actions/photos";
-import PhotoItem from "../components/PhotoItem";
+import {addToFavorites, loadNewPhotos} from "../actions/Photos";
+import PhotoItem from "./ItemComponent";
 
-class RunLoadPhotosComponent extends Component {
+class TopComponent extends Component {
 
     componentDidMount() {
-        this.props.loadPH(this.props.page);
-
+        this.props.loadPhotos(this.props.page);
 
         window.addEventListener("scroll", (e) => {
             if (document.body.scrollHeight < (window.innerHeight + e.pageY)) {
-                this.props.loadPH(this.props.page + 1, this.props.photos);
+                this.props.loadPhotos(this.props.page + 1, this.props.photos);
             }
         });
     }
@@ -40,39 +39,34 @@ class RunLoadPhotosComponent extends Component {
             }
             this.setState({sum: a});
         }
-        var SR = this.state.selections;
-        SR[one] = selected;
+        var selection_state = this.state.selections;
+        selection_state[one] = selected;
         this.setState({
-            selections: SR,
+            selections: selection_state,
         });
     }
 
     toggleHidden() {
         if (this.state.sum > 0) {
 
-            var resultArray = []
-
+            var resultArray = [];
             for (var i = 0; i < this.state.selections.length; i++) {
-                if (this.state.selections[i] == 0) {
-
-                } else {
+                if (this.state.selections[i] != 0) {
                     resultArray.push(this.props.photos[i])
                 }
             }
-
-            this.props.add_FAVS(resultArray);
+            this.props.addFavorites(resultArray);
             this.clearState()
-
         }
     }
 
     clearState() {
         this.setState({sum: 0});
-        var SR = this.state.selections;
-        for (var i = 0; i < SR.length; i++) {
-            SR[i] = 0;
+        var selection_state = this.state.selections;
+        for (var i = 0; i < selection_state.length; i++) {
+            selection_state[i] = 0;
         }
-        this.setState({selections: SR});
+        this.setState({selections: selection_state});
     }
 
     render() {
@@ -89,7 +83,7 @@ class RunLoadPhotosComponent extends Component {
                 <div class="row mt-3">
 
                     {this.props.photos.map((item, key) => (
-                        <PhotoItem slctd={this.state.selections[key]} id={key} handler={this.handler}
+                        <PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
                                    image_source={item}/>
 
                     ))}
@@ -112,9 +106,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loadPH: (page, photos) => dispatch(load_X_Photos(page, photos)),
-        add_FAVS: (favs) => dispatch(add_X_to_FAVS(favs)),
+        loadPhotos  : (page, photos) => dispatch(loadNewPhotos(page, photos)),
+        addFavorites: (favs) => dispatch(addToFavorites(favs)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RunLoadPhotosComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(TopComponent);

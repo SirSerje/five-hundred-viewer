@@ -1,7 +1,17 @@
+import {
+    FAVORITES_ADDED,
+    FAVORITES_RESTORED,
+    ITEMS_FETCH_DATA_SUCCESS,
+    ITEMS_HAS_ERRORED,
+    ITEMS_IS_LOADING,
+    key,
+    PHOTOS_LOADED,
+    RESTORE_EMPTY,
+} from "../constants/ActionTypes";
 
 export function itemsHasErrored(state = false, action) {
     switch (action.type) {
-        case "ITEMS_HAS_ERRORED":
+        case ITEMS_HAS_ERRORED:
             return action.hasErrored;
 
         default:
@@ -11,7 +21,7 @@ export function itemsHasErrored(state = false, action) {
 
 export function itemsIsLoading(state = false, action) {
     switch (action.type) {
-        case "ITEMS_IS_LOADING":
+        case ITEMS_IS_LOADING:
             return action.isLoading;
 
         default:
@@ -21,7 +31,7 @@ export function itemsIsLoading(state = false, action) {
 
 export function items(state = [], action) {
     switch (action.type) {
-        case "ITEMS_FETCH_DATA_SUCCESS":
+        case ITEMS_FETCH_DATA_SUCCESS:
             return action.items;
 
         default:
@@ -29,18 +39,14 @@ export function items(state = [], action) {
     }
 }
 
-/*var a = [];
- var b = 1;*/
 export function favorites(state = [], action) {
-
-
     switch (action.type) {
-        case "RESTORE_EMPTY":
+        case RESTORE_EMPTY:
             return {};
-        case "FAVORITES_RESTORED":
-            return action.fvs;
-        case "FAVORITES_ADDED":
-            return action.fvs
+        case FAVORITES_RESTORED:
+            return action.favoriteItems;
+        case FAVORITES_ADDED:
+            return action.favoriteItems;
 
         default:
             return state;
@@ -50,7 +56,7 @@ export function favorites(state = [], action) {
 
 export function photos(state = [], action) {
     switch (action.type) {
-        case "PHOTOS_LOADED":
+        case PHOTOS_LOADED:
             return action.photos;
 
         default:
@@ -60,7 +66,7 @@ export function photos(state = [], action) {
 
 export function page(state = [], action) {
     switch (action.type) {
-        case "PHOTOS_LOADED":
+        case PHOTOS_LOADED:
             return action.page;
 
         default:

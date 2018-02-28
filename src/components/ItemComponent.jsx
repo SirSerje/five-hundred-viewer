@@ -13,7 +13,7 @@ class PhotoItem extends React.Component {
 
     photoClick(event) {
         event && event.preventDefault();
-        this.props.handler(event, this.props.id, this.props.slctd == 0 ? 1 : 0, this.props);
+        this.props.handler(event, this.props.id, this.props.selected_item == 0 ? 1 : 0, this.props);
     }
 
     render() {
@@ -23,10 +23,10 @@ class PhotoItem extends React.Component {
                     src={this.props.image_source.image_url[0]}
                     alt="default"
                     class="img-thumbnail"
-                    style={{"opacity": this.props.slctd == 1 ? .5 : 1}}
+                    style={{"opacity": this.props.selected_item == 1 ? .5 : 1}}
                     onClick={this.photoClick}
                 />
-                <p> id: {this.props.id} selected: {this.props.slctd}</p>
+                <p> id: {this.props.id} selected: {this.props.selected_item}</p>
             </div>
         );
     }
