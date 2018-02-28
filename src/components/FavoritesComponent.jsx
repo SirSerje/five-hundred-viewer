@@ -4,6 +4,23 @@ import {loadFromFavorites, removeFromFavorites} from "../actions/Photos";
 import {isEmptyObject} from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
 
+var style = {
+    backgroundColor: "#F8F8F8",
+    borderTop      : "1px solid #E7E7E7",
+    textAlign      : "center",
+    position       : "fixed",
+    left           : "0",
+    top            : "0",
+    height         : "60px",
+    width          : "100%",
+};
+
+var phantom = {
+    display: "block",
+    height : "60px",
+    width  : "100%",
+};
+
 
 class FavoritesComponent extends Component {
     componentDidMount() {
@@ -67,21 +84,23 @@ class FavoritesComponent extends Component {
     render() {
         return (
             <div class="container">
-                <b>Top photo</b> <i>selected total : </i>{this.state.sum}
-
-                <div>
-                    {<button className={this.state.sum > 0 ? "btn btn-danger btn-sm" : "btn btn-danger disabled btn-sm"}
-                             onClick={this.toggleHidden}>
-                        Favourites X </button>}
-                </div>
-
                 <div class="row mt-3">
 
                     {!isEmptyObject(this.props.favorites) && this.props.favorites.map((item, key) => (
                         <PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
                                    image_source={item}/>
                     ))}
+                </div>
 
+                <div style={phantom}/>
+                <div style={style}>
+                    <b>Top photo</b> <i>selected total : </i>{this.state.sum}
+                    <div>
+                        {<button
+                            className={this.state.sum > 0 ? "btn btn-danger btn-sm" : "btn btn-danger disabled btn-sm"}
+                            onClick={this.toggleHidden}>
+                            Favourites X </button>}
+                    </div>
                 </div>
             </div>);
     }
