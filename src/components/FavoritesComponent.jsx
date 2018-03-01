@@ -25,7 +25,7 @@ var phantom = {
 
 class FavoritesComponent extends React.Component {
 	componentDidMount() {
-		this.props.loadFavorites();
+		this.props.loadFavorites;
 	}
 
 	constructor() {
