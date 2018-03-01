@@ -30,11 +30,10 @@ export const loadFromFavorites = (value) => (dispatch) => {
     if (isEmptyObject(localStorageItems)) {
         dispatch(restoreEmpty("No Item at all"));
     } else {
-        //TODO проверить возможность реализации catch
-        dispatch(favoritesRestored(JSON.parse(localStorageItems)));
-        /*.catch(function (err) {
-         dispatch(restoreError(err));
-         });*/
+        dispatch(favoritesRestored(JSON.parse(localStorageItems)))
+            .catch(function (err) {
+            dispatch(restoreError(err));
+        });
     }
 };
 
