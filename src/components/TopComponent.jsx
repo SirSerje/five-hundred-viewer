@@ -95,16 +95,15 @@ class TopComponent extends Component {
                     {this.props.photos.map((item, key) => (
                         <PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
                                    image_source={item}/>
-
                     ))}
                 </div>
 
 
-
                 <div style={phantom}/>
                 <div style={style}>
-
                     <b>Top photo</b> <i>selected total : </i>{this.state.sum}
+                    {this.props.photosError && <span class="badge badge-pill badge-danger">{this.props.photosError.message}</span>}
+
                     <div>
                         {<button
                             className={this.state.sum > 0 ? "btn btn-success btn-sm" : "btn btn-success disabled btn-sm"}
@@ -121,12 +120,13 @@ class TopComponent extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        photos    : state.photos,
-        page      : state.page,
-        items     : state.items,
-        favorites : state.favorites,
-        hasErrored: state.itemsHasErrored,
-        isLoading : state.itemsIsLoading,
+        photos     : state.photos,
+        page       : state.page,
+        photosError: state.photosError,
+        items      : state.items,
+        favorites  : state.favorites,
+        hasErrored : state.itemsHasErrored,
+        isLoading  : state.itemsIsLoading,
     };
 };
 

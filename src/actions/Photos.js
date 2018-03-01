@@ -13,8 +13,19 @@ import {fetchPhotos} from "../data/Api";
 import {isEmptyObject} from "../utils/Utils";
 
 
+const filters = [
+    {label: "Popular", key: "popular"},
+    {label: "Highest Rated", key: "hightest_rated"},
+    {label: "Upcoming", key: "upcoming"},
+    {label: "Editors", key: "editors"},
+    {label: "Fresh Today", key: "fresh_today"},
+    {label: "Fresh Yesterday", key: "fresh_yesterday"},
+    {label: "Fresh Week", key: "fresh_week"},
+];
+
 export const loadNewPhotos = (page, value) => (dispatch) => {
-    let filter = ""; //TODO фильтр можно будет заменить на что то
+    //update collection, if not first page
+    let filter = (page == 1 || page.length == 0) ? filters[_.random(0, filters.length-1)].key : "";
     dispatch({type: FETCH_PHOTOS, selectedFilter: filter});
     fetchPhotos(filter, page).then(function (response) {
         dispatch(photosLoaded(value != undefined ? value.concat(response.data.photos) : response.data.photos, response.data.current_page, filter, value));
@@ -30,10 +41,7 @@ export const loadFromFavorites = (value) => (dispatch) => {
     if (isEmptyObject(localStorageItems)) {
         dispatch(restoreEmpty("No Item at all"));
     } else {
-        dispatch(favoritesRestored(JSON.parse(localStorageItems)))
-            .catch(function (err) {
-            dispatch(restoreError(err));
-        });
+        dispatch(favoritesRestored(JSON.parse(localStorageItems)));
     }
 };
 

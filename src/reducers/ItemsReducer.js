@@ -7,6 +7,7 @@ import {
     key,
     PHOTOS_LOADED,
     RESTORE_EMPTY,
+    PHOTOS_ERROR
 } from "../constants/ActionTypes";
 
 export function itemsHasErrored(state = false, action) {
@@ -52,13 +53,21 @@ export function favorites(state = [], action) {
             return state;
     }
 }
-
+export function photosError(state = [], action) {
+    switch (action.type) {
+        case PHOTOS_LOADED:
+            return "";
+        case PHOTOS_ERROR:
+            return action.message;
+        default:
+            return state;
+    }
+}
 
 export function photos(state = [], action) {
     switch (action.type) {
         case PHOTOS_LOADED:
             return action.photos;
-
         default:
             return state;
     }
@@ -68,7 +77,6 @@ export function page(state = [], action) {
     switch (action.type) {
         case PHOTOS_LOADED:
             return action.page;
-
         default:
             return state;
     }

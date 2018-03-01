@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-const URL = "https://api.500px.com/v1/photos";
+const HEAD = "https://api.500px.com/v1/photos?feature="
+const TAIL = "&sort=created_at&image_size=3&include_store=store_download&include_states=voted";
 const CONSUMER_KEY = "LK8VIVPcKRpV4ix9VXO4mGbdL3kUeVvkzZl2NITS";
 
 export function fetchPhotos(filter, page){
-    return axios.get(URL,{
+    return axios.get(HEAD.concat((filter).concat(TAIL)),{
       params: {
         feature: filter,
         page: page || 1,
