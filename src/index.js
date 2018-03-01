@@ -1,8 +1,8 @@
-import React from "react";
 import {render} from "react-dom";
-import {Provider} from "react-redux";
-import App from "./components/AppComponent";
 import configureStore from "./store/MainStore";
+import {Provider} from "react-redux"; //{} uses if export default
+import App from "../src/components/AppComponent";
+import React from "react";
 
 const store = configureStore();
 

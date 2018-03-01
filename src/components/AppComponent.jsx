@@ -1,7 +1,9 @@
-import React from "react";
-import {BrowserRouter as Router, Route, withRouter} from "react-router-dom";
 import FavoritesComponent from "./FavoritesComponent";
 import RunLoadPhotosComponent from "./TopComponent";
+import FavoritesButtonComponent from "./ui/FavoritesButtonComponent";
+import TopButtonComponent from "./ui/TopButtonComponent";
+import {BrowserRouter, Route} from "react-router-dom";
+import React from "react";
 
 var style = {
 	backgroundColor: "#F8F8F8",
@@ -23,7 +25,7 @@ var phantom = {
 };
 
 const App = () => (
-	<Router>
+	<BrowserRouter>
 		<div>
 
 			<div class="row mt-3">
@@ -41,34 +43,11 @@ const App = () => (
 				</div>
 			</div>
 		</div>
-	</Router>
+	</BrowserRouter>
 
 );
 export default App;
 
-const TopButtonComponent = withRouter(({history}) => (
-	<button
-		className="btn btn-primary"
-		type='button'
-		onClick={() => {
-			history.push("/");
-		}}
-	>
-        HOT
-	</button>
-));
-
-const FavoritesButtonComponent = withRouter(({history}) => (
-	<button
-		className="btn btn-warning"
-		type='button'
-		onClick={() => {
-			history.push("/favorites");
-		}}
-	>
-        FAV
-	</button>
-));
 
 
 

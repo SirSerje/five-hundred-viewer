@@ -1,29 +1,7 @@
 import _ from "lodash";
 import {reactLocalStorage} from "reactjs-localstorage";
-import {
-	FAVORITES_ADDED,
-	FAVORITES_RESTORED,
-	FETCH_PHOTOS,
-	PHOTOS_ERROR,
-	PHOTOS_LOADED,
-	RESTORE_EMPTY,
-	RESTORE_FAILED,
-} from "../constants/ActionTypes";
-import {fetchPhotos} from "../data/Api";
+import {FAVORITES_ADDED, FAVORITES_RESTORED, RESTORE_EMPTY} from "../constants/ActionTypes";
 import {isEmptyObject} from "../utils/Utils";
-import { filters } from "../constants/FilterTypes";
-
-export const loadNewPhotos = (page, value) => (dispatch) => {
-	//update collection, if not first page
-	let filter = (page == 1 || page.length == 0) ? filters[_.random(0, filters.length-1)].key : "";
-	dispatch({type: FETCH_PHOTOS, selectedFilter: filter});
-	fetchPhotos(filter, page).then(function (response) {
-		dispatch(photosLoaded(value != undefined ? value.concat(response.data.photos) : response.data.photos, response.data.current_page, filter, value));
-	})
-		.catch(function (err) {
-			dispatch(loadingError(err));
-		});
-};
 
 
 export const loadFromFavorites = (value) => (dispatch) => {
@@ -74,19 +52,13 @@ function favoritesRestored(value) {
 		favoriteItems: value,
 	};
 }
-function restoreError(message) {
-	return {
-		type   : RESTORE_FAILED,
-		message: "RESTORING FAVORITES FAILED, ERROR:" + message,
-	};
-}
+
 function restoreEmpty(message) {
 	return {
 		type   : RESTORE_EMPTY,
 		message: message,
 	};
 }
-
 
 function favoritesAdded(value) {
 	return {
@@ -99,22 +71,5 @@ function favoritesRemoved(value) {
 	return {
 		type         : FAVORITES_ADDED,
 		favoriteItems: value,
-	};
-}
-
-
-function loadingError(message) {
-	return {
-		type   : PHOTOS_ERROR,
-		message: message,
-	};
-}
-
-function photosLoaded(photos, page, filter) {
-	return {
-		type          : PHOTOS_LOADED,
-		photos        : photos,
-		page          : page,
-		selectedFilter: filter,
 	};
 }

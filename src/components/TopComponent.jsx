@@ -1,6 +1,7 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
-import {addToFavorites, loadNewPhotos} from "../actions/Photos";
+import {addToFavorites} from "../actions/FavoriteActions";
+import {loadNewPhotos} from "../actions/PhotoActions";
 import PhotoItem from "./ItemComponent";
 
 
@@ -22,7 +23,7 @@ var phantom = {
 };
 
 
-class TopComponent extends Component {
+class TopComponent extends React.Component {
 
 	componentDidMount() {
 		this.props.loadPhotos(this.props.page);
@@ -102,7 +103,8 @@ class TopComponent extends Component {
 				<div style={phantom}/>
 				<div style={style}>
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
-					{this.props.photosError && <span class="badge badge-pill badge-danger">{this.props.photosError.message}</span>}
+					{this.props.photosError &&
+                    <span class="badge badge-pill badge-danger">{this.props.photosError.message}</span>}
 
 					<div>
 						{<button

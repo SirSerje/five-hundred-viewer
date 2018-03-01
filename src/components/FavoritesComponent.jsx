@@ -1,8 +1,9 @@
-import React, {Component} from "react";
 import {connect} from "react-redux";
-import {loadFromFavorites, removeFromFavorites} from "../actions/Photos";
+import {loadFromFavorites, removeFromFavorites} from "../actions/FavoriteActions";
 import {isEmptyObject} from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
+import React from "react";
+
 
 var style = {
 	backgroundColor: "#F8F8F8",
@@ -22,7 +23,7 @@ var phantom = {
 };
 
 
-class FavoritesComponent extends Component {
+class FavoritesComponent extends React.Component {
 	componentDidMount() {
 		this.props.loadFavorites;
 	}
@@ -120,6 +121,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesComponent);
-
-
-
