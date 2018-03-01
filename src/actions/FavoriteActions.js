@@ -33,13 +33,13 @@ export const addToFavorites = (value) => (dispatch) => {
 	}
 
 	let finalData = value;
-	if (value != undefined && !isEmptyObject(value) && storagedItems != undefined) {
+	if (value !== undefined && !isEmptyObject(value) && storagedItems !== undefined) {
 		finalData = value.concat(storagedItems);
 		finalData = _.uniqBy(finalData, v => v.image_url[0]);
 	}
 
 
-	if (finalData != undefined && !isEmptyObject(finalData)) {
+	if (finalData !== undefined && !isEmptyObject(finalData)) {
 		reactLocalStorage.setObject("favorites", JSON.stringify(finalData));
 	}
 

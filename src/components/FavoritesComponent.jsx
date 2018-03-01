@@ -25,7 +25,7 @@ var phantom = {
 
 class FavoritesComponent extends React.Component {
 	componentDidMount() {
-		this.props.loadFavorites;
+		this.props.loadFavorites();
 	}
 
 	constructor() {
@@ -41,7 +41,7 @@ class FavoritesComponent extends React.Component {
 	handler(e, one, selected, item) {
 		e && e.preventDefault();
 		let a;
-		if (item != undefined) {
+		if (item !== undefined) {
 			if (selected) {
 				a = this.state.sum + 1;
 			} else {
@@ -62,7 +62,7 @@ class FavoritesComponent extends React.Component {
 			var resultArray = [];
 
 			for (var i = 0; i < this.state.selections.length; i++) {
-				if (this.state.selections[i] != 0) {
+				if (this.state.selections[i] !== 0) {
 					resultArray.push(this.props.favorites[i]);
 				}
 			}
