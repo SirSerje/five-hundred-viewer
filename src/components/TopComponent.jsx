@@ -9,14 +9,12 @@ class TopComponent extends React.Component {
 
 	componentDidMount() {
 		this.props.loadPhotos(this.props.page);
-
-		window.addEventListener("scroll", (e) => {
-			if (document.body.scrollHeight < (window.innerHeight + e.pageY)) {
-				this.props.loadPhotos(this.props.page + 1, this.props.photos);
-			}
-		});
+		window.addEventListener("scroll", this.scrollHandler.bind(this));
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener("scroll", this.scrollHandler.bind(this));
+	}
 
 	constructor() {
 		super();
@@ -29,6 +27,14 @@ class TopComponent extends React.Component {
 		this.toggleHidden = this.toggleHidden.bind(this);
 	}
 
+	scrollHandler(){
+		let d = document.documentElement;
+		let offset = d.scrollTop + window.innerHeight;
+		let height = d.offsetHeight;
+		if (offset >= height) {
+			this.props.loadPhotos(this.props.page + 1, this.props.photos);
+		}
+	}
 
 	handler(e, one, selected, item) {
 		e && e.preventDefault();
