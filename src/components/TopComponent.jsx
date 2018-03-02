@@ -11,7 +11,10 @@ class TopComponent extends React.Component {
 		this.props.loadPhotos(this.props.page);
 
 		window.addEventListener("scroll", (e) => {
-			if (document.body.scrollHeight < (window.innerHeight + e.pageY)) {
+			let d = document.documentElement;
+			let offset = d.scrollTop + window.innerHeight;
+			let height = d.offsetHeight;
+			if (offset >= height) {
 				this.props.loadPhotos(this.props.page + 1, this.props.photos);
 			}
 		});
