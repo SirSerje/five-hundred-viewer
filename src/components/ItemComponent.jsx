@@ -26,7 +26,8 @@ class PhotoItem extends React.Component {
 					style={{"opacity": this.props.selected_item === 1 ? .5 : 1}}
 					onClick={this.photoClick}
 				/>
-				<p> id: {this.props.id} selected: {this.props.selected_item}</p>
+				<p></p>
+				{/*<p> id: {this.pr	ops.id} selected: {this.props.selected_item}</p>*/}
 			</div>
 		);
 	}

@@ -3,25 +3,7 @@ import {connect} from "react-redux";
 import {addToFavorites} from "../actions/FavoriteActions";
 import {loadNewPhotos} from "../actions/PhotoActions";
 import PhotoItem from "./ItemComponent";
-
-
-var style = {
-	backgroundColor: "#F8F8F8",
-	borderTop      : "1px solid #E7E7E7",
-	textAlign      : "center",
-	position       : "fixed",
-	left           : "0",
-	top            : "0",
-	height         : "60px",
-	width          : "100%",
-};
-
-var phantom = {
-	display: "block",
-	height : "60px",
-	width  : "100%",
-};
-
+import {style_top, phantom_top} from "../constants/StyleTypes";
 
 class TopComponent extends React.Component {
 
@@ -100,8 +82,8 @@ class TopComponent extends React.Component {
 				</div>
 
 
-				<div style={phantom}/>
-				<div style={style}>
+				<div style={phantom_top}/>
+				<div style={style_top}>
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					{this.props.photosError &&
                     <span class="badge badge-pill badge-danger">{this.props.photosError.message}</span>}

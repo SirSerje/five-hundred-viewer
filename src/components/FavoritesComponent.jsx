@@ -3,25 +3,7 @@ import {loadFromFavorites, removeFromFavorites} from "../actions/FavoriteActions
 import {isEmptyObject} from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
 import React from "react";
-
-
-var style = {
-	backgroundColor: "#F8F8F8",
-	borderTop      : "1px solid #E7E7E7",
-	textAlign      : "center",
-	position       : "fixed",
-	left           : "0",
-	top            : "0",
-	height         : "60px",
-	width          : "100%",
-};
-
-var phantom = {
-	display: "block",
-	height : "60px",
-	width  : "100%",
-};
-
+import {style_top, phantom_top} from "../constants/StyleTypes";
 
 class FavoritesComponent extends React.Component {
 	componentDidMount() {
@@ -93,8 +75,8 @@ class FavoritesComponent extends React.Component {
 					))}
 				</div>
 
-				<div style={phantom}/>
-				<div style={style}>
+				<div style={phantom_top}/>
+				<div style={style_top}>
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					<div>
 						{<button

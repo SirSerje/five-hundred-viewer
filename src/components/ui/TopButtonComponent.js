@@ -14,9 +14,3 @@ const TopButtonComponent = withRouter(({history}) => (
 ));
 
 export default TopButtonComponent;
-
-
-
-
-
-
