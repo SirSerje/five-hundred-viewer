@@ -1,6 +1,3 @@
-
-
-
 export const  style_top = {
 	backgroundColor: "#F8F8F8",
 	borderTop      : "1px solid #E7E7E7",
@@ -17,7 +14,6 @@ export const phantom_top = {
 	height : "60px",
 	width  : "100%",
 };
-
 
 export const style = {
 	backgroundColor: "#F8F8F8",
