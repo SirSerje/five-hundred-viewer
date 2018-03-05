@@ -4,7 +4,7 @@ import FavoritesButtonComponent from "./ui/FavoritesButtonComponent";
 import TopButtonComponent from "./ui/TopButtonComponent";
 import {BrowserRouter, Route} from "react-router-dom";
 import React from "react";
-import {phantom, style} from "../constants/StyleTypes";
+import "../styles/main.css";
 
 const App = () => (
 	<BrowserRouter>
@@ -16,8 +16,8 @@ const App = () => (
 					<Route exact path="/favorites" component={FavoritesComponent}/>
 				</div>
 			</div>
-			<div style={phantom}/>
-			<div style={style}>
+			<div className ="app-phantom"/>
+			<div className ="app-style">
 
 				<div className="col-md">
 					<TopButtonComponent/>

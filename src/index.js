@@ -3,6 +3,7 @@ import configureStore from "./store/MainStore";
 import {Provider} from "react-redux"; //{} uses if export default
 import App from "../src/components/AppComponent";
 import React from "react";
+import './styles/index.css';
 
 const store = configureStore();
 
