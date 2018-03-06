@@ -27,7 +27,6 @@ class PhotoItem extends React.Component {
 					onClick={this.photoClick}
 				/>
 				<p></p>
-				{/*<p> id: {this.pr	ops.id} selected: {this.props.selected_item}</p>*/}
 			</div>
 		);
 	}

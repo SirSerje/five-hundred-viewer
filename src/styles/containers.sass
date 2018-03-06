@@ -1,0 +1,40 @@
+.basic
+  width: 100%
+  height: 3*$size_padding
+
+.basic-style
+  @extend .basic
+  padding: $size_padding
+  position: fixed
+  left: 0px
+  text-align: center
+  background-color: $color_main
+
+.basic-phantom
+  @extend .basic
+  display: block
+  padding: $size_padding
+
+
+
+/*Concrete implementations:*/
+.app-style-top
+  @extend .basic-style
+  top: 0px
+  padding-top: 0px
+  border-bottom: $style_border
+
+.app-style
+  @extend .basic-style
+  bottom: 0px
+  padding-top: 0px
+  border-top: $style_border
+
+.app-phantom-top
+  @extend .basic-phantom
+
+.app-phantom
+  @extend .basic-phantom
+
+.offset-container
+  padding-top: 2*$size_padding
