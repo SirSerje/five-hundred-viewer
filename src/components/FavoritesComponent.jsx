@@ -3,6 +3,8 @@ import {loadFromFavorites, removeFromFavorites} from "../actions/FavoriteActions
 import {isEmptyObject} from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
 import React from "react";
+import {STYLE_TOP} from "../constants/StyleTypes";
+
 import "../styles/main.css";
 
 class FavoritesComponent extends React.Component {
@@ -75,8 +77,7 @@ class FavoritesComponent extends React.Component {
 					))}
 				</div>
 
-				<div className ="app-phantom-top"/>
-				<div className ="app-style-top">
+				<div className ={STYLE_TOP}>
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					<div>
 						{<button

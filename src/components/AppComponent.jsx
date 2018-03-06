@@ -1,10 +1,11 @@
+import React from "react";
+import {BrowserRouter, Route} from "react-router-dom";
+import {STYLE} from "../constants/StyleTypes";
+import "../styles/main.css";
 import FavoritesComponent from "./FavoritesComponent";
 import RunLoadPhotosComponent from "./TopComponent";
 import FavoritesButtonComponent from "./ui/FavoritesButtonComponent";
 import TopButtonComponent from "./ui/TopButtonComponent";
-import {BrowserRouter, Route} from "react-router-dom";
-import React from "react";
-import "../styles/main.css";
 
 const App = () => (
 	<BrowserRouter>
@@ -16,8 +17,7 @@ const App = () => (
 					<Route exact path="/favorites" component={FavoritesComponent}/>
 				</div>
 			</div>
-			<div className ="app-phantom"/>
-			<div className ="app-style">
+			<div className={STYLE}>
 
 				<div className="col-md">
 					<TopButtonComponent/>

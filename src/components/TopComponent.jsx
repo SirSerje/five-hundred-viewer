@@ -3,7 +3,9 @@ import {connect} from "react-redux";
 import {addToFavorites} from "../actions/FavoriteActions";
 import {loadNewPhotos} from "../actions/PhotoActions";
 import PhotoItem from "./ItemComponent";
+import {STYLE_TOP} from "../constants/StyleTypes";
 import "../styles/main.css";
+
 
 class TopComponent extends React.Component {
 
@@ -87,8 +89,7 @@ class TopComponent extends React.Component {
 					))}
 				</div>
 
-				<div className ="app-phantom-top"/>
-				<div className ="app-style-top">
+				<div className ={STYLE_TOP}>
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					{this.props.photosError &&
                     <span class="badge badge-pill badge-danger">{this.props.photosError.message}</span>}
