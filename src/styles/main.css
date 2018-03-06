@@ -25,3 +25,6 @@
   bottom: 0;
   padding-bottom: 0px;
   border-top: 1px dashed rgba(144, 144, 144, 0.9); }
+
+.offset-container {
+  padding-top: 40px; }

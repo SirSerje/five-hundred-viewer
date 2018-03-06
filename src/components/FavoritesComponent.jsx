@@ -3,7 +3,7 @@ import {loadFromFavorites, removeFromFavorites} from "../actions/FavoriteActions
 import {isEmptyObject} from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
 import React from "react";
-import {STYLE_TOP} from "../constants/StyleTypes";
+import {STYLE_TOP, OFFSET_CONTAINER} from "../constants/StyleTypes";
 
 import "../styles/main.css";
 
@@ -69,8 +69,7 @@ class FavoritesComponent extends React.Component {
 	render() {
 		return (
 			<div class="container">
-				<div class="row mt-3">
-
+				<div class={OFFSET_CONTAINER}>
 					{!isEmptyObject(this.props.favorites) && this.props.favorites.map((item, key) => (
 						<PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
 							image_source={item}/>
