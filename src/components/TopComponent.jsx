@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {addToFavorites} from "../actions/FavoriteActions";
 import {loadNewPhotos} from "../actions/PhotoActions";
 import PhotoItem from "./ItemComponent";
-import {STYLE_TOP, OFFSET_CONTAINER} from "../constants/StyleTypes";
+import {STYLE_TOP, OFFSET_CONTAINER, FAVORITE_ADD, BUTTON_DISABLED} from "../constants/StyleTypes";
 import "../styles/main.css";
 
 
@@ -96,7 +96,7 @@ class TopComponent extends React.Component {
 
 					<div>
 						{<button
-							className={this.state.sum > 0 ? "btn btn-success btn-sm" : "btn btn-success disabled btn-sm"}
+							className={this.state.sum > 0 ? FAVORITE_ADD : BUTTON_DISABLED}
 							onClick={this.toggleHidden}>
                             Favourites + </button>                    }
 					</div>

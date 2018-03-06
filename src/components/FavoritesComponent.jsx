@@ -3,7 +3,7 @@ import {loadFromFavorites, removeFromFavorites} from "../actions/FavoriteActions
 import {isEmptyObject} from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
 import React from "react";
-import {STYLE_TOP, OFFSET_CONTAINER} from "../constants/StyleTypes";
+import {STYLE_TOP, OFFSET_CONTAINER, FAVORITE_REMOVE, BUTTON_DISABLED} from "../constants/StyleTypes";
 
 import "../styles/main.css";
 
@@ -80,7 +80,7 @@ class FavoritesComponent extends React.Component {
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					<div>
 						{<button
-							className={this.state.sum > 0 ? "btn btn-danger btn-sm" : "btn btn-danger disabled btn-sm"}
+							className={this.state.sum > 0 ? FAVORITE_REMOVE : BUTTON_DISABLED}
 							onClick={this.toggleHidden}>
                             Favourites X </button>}
 					</div>
