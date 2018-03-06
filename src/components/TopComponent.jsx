@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {addToFavorites} from "../actions/FavoriteActions";
 import {loadNewPhotos} from "../actions/PhotoActions";
 import PhotoItem from "./ItemComponent";
-import {STYLE_TOP} from "../constants/StyleTypes";
+import {STYLE_TOP, OFFSET_CONTAINER} from "../constants/StyleTypes";
 import "../styles/main.css";
 
 
@@ -82,7 +82,7 @@ class TopComponent extends React.Component {
 	render() {
 		return (
 			<div class="container">
-				<div class="row mt-3">
+				<div class={OFFSET_CONTAINER}>
 					{this.props.photos.map((item, key) => (
 						<PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
 							image_source={item}/>

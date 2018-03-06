@@ -7,7 +7,7 @@
 .basic-style, .app-style-top, .app-style {
   padding: 20px;
   position: fixed;
-  left: 0;
+  left: 0px;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.8); }
 
@@ -17,11 +17,14 @@
 
 /*Concrete implementations:*/
 .app-style-top {
-  top: 0;
+  top: 0px;
   padding-top: 0px;
   border-bottom: 1px dashed rgba(144, 144, 144, 0.9); }
 
 .app-style {
-  bottom: 0;
+  bottom: 0px;
   padding-bottom: 0px;
   border-top: 1px dashed rgba(144, 144, 144, 0.9); }
+
+.offset-container {
+  padding-top: 40px; }
