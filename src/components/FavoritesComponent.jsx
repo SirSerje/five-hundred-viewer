@@ -1,9 +1,9 @@
 import _ from "lodash";
+import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";
 import {loadFromFavorites, removeFromFavorites} from "../actions/FavoriteActions";
 import {BUTTON_DISABLED, FAVORITE_REMOVE, OFFSET_CONTAINER, STYLE_TOP} from "../constants/StyleTypes";
-
 import "../styles/main.css";
 import {isEmptyObject} from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
@@ -90,6 +90,10 @@ class FavoritesComponent extends React.Component {
 			</div>);
 	}
 }
+
+FavoritesComponent.propTypes = {
+	favorites: PropTypes.array,
+};
 
 const mapStateToProps = (state) => {
 	return {

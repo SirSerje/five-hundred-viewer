@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 class PhotoItem extends React.Component {
@@ -32,3 +33,10 @@ class PhotoItem extends React.Component {
 	}
 }
 export default PhotoItem;
+
+PhotoItem.propTypes = {
+	image_url    : PropTypes.array,
+	image_source : PropTypes.object,
+	selected_item: PropTypes.number,
+	id           : PropTypes.number,
+};

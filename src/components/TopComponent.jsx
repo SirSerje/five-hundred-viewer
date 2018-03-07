@@ -1,4 +1,5 @@
 import _ from "lodash";
+import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";
 import {addToFavorites} from "../actions/FavoriteActions";
@@ -111,15 +112,18 @@ class TopComponent extends React.Component {
 	}
 }
 
+TopComponent.propTypes = {
+	photos   : PropTypes.array,
+	page     : PropTypes.number,
+	favorites: PropTypes.array,
+};
+
 const mapStateToProps = (state) => {
 	return {
 		photos     : state.photos,
 		page       : state.page,
 		photosError: state.photosError,
-		items      : state.items,
 		favorites  : state.favorites,
-		hasErrored : state.itemsHasErrored,
-		isLoading  : state.itemsIsLoading,
 	};
 };
 
