@@ -11,7 +11,7 @@ const App = () => (
 	<BrowserRouter>
 		<div>
 
-			<div class="row mt-3">
+			<div className="row mt-3">
 				<div className="col-md">
 					<Route exact path="/" component={RunLoadPhotosComponent}/>
 					<Route exact path="/favorites" component={FavoritesComponent}/>

@@ -68,8 +68,8 @@ class FavoritesComponent extends React.Component {
 
 	render() {
 		return (
-			<div class="container">
-				<div class={OFFSET_CONTAINER}>
+			<div className="container">
+				<div className={OFFSET_CONTAINER}>
 					{!isEmptyObject(this.props.favorites) && this.props.favorites.map((item, key) => (
 						<PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
 							image_source={item}/>

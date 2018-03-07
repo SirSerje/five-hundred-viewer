@@ -22,7 +22,7 @@ class PhotoItem extends React.Component {
 				<img
 					src={this.props.image_source.image_url[0]}
 					alt="default"
-					class="img-thumbnail"
+					className="img-thumbnail"
 					style={{"opacity": this.props.selected_item === 1 ? .5 : 1}}
 					onClick={this.photoClick}
 				/>

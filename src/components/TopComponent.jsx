@@ -81,8 +81,8 @@ class TopComponent extends React.Component {
 
 	render() {
 		return (
-			<div class="container">
-				<div class={OFFSET_CONTAINER}>
+			<div className="container">
+				<div className={OFFSET_CONTAINER}>
 					{this.props.photos.map((item, key) => (
 						<PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
 							image_source={item}/>
@@ -92,7 +92,7 @@ class TopComponent extends React.Component {
 				<div className ={STYLE_TOP}>
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					{this.props.photosError &&
-                    <span class="badge badge-pill badge-danger">{this.props.photosError.message}</span>}
+                    <span className="badge badge-pill badge-danger">{this.props.photosError.message}</span>}
 
 					<div>
 						{<button
