@@ -1,22 +1,23 @@
+import _ from "lodash";
+import React from "react";
 import {connect} from "react-redux";
 import {loadFromFavorites, removeFromFavorites} from "../actions/FavoriteActions";
-import {isEmptyObject} from "../utils/Utils";
-import PhotoItem from "./ItemComponent";
-import React from "react";
-import {STYLE_TOP, OFFSET_CONTAINER, FAVORITE_REMOVE, BUTTON_DISABLED} from "../constants/StyleTypes";
+import {BUTTON_DISABLED, FAVORITE_REMOVE, OFFSET_CONTAINER, STYLE_TOP} from "../constants/StyleTypes";
 
 import "../styles/main.css";
+import {isEmptyObject} from "../utils/Utils";
+import PhotoItem from "./ItemComponent";
 
 class FavoritesComponent extends React.Component {
 	componentDidMount() {
-		this.props.loadFavorites;
+		this.props.loadFavorites();
 	}
 
 	constructor() {
 		super();
 		this.state = {
 			sum       : 0,
-			selections: [],
+			selections: {},
 		};
 		this.handler = this.handler.bind(this);
 		this.toggleHidden = this.toggleHidden.bind(this);
@@ -33,7 +34,7 @@ class FavoritesComponent extends React.Component {
 			}
 			this.setState({sum: a});
 		}
-		var selection_state = this.state.selections;
+		let selection_state = this.state.selections;
 		selection_state[one] = selected;
 		this.setState({
 			selections: selection_state,
@@ -42,12 +43,12 @@ class FavoritesComponent extends React.Component {
 
 	toggleHidden() {
 		if (this.state.sum > 0) {
-
-			var resultArray = [];
-
-			for (var i = 0; i < this.state.selections.length; i++) {
-				if (this.state.selections[i] !== 0) {
-					resultArray.push(this.props.favorites[i]);
+			let resultArray = [];
+			for (let m in this.state.selections) {
+				if (this.state.selections[m] !== 0) {
+					resultArray.push(_.find(this.props.favorites, function (o) {
+						return Number(o.id) === Number(m);
+					}));
 				}
 			}
 			this.props.removeFavorites(resultArray);
@@ -58,8 +59,8 @@ class FavoritesComponent extends React.Component {
 
 	clearState() {
 		this.setState({sum: 0});
-		var selection_state = this.state.selections;
-		for (var i = 0; i < selection_state.length; i++) {
+		let selection_state = this.state.selections;
+		for (let i in this.state.selections) {
 			selection_state[i] = 0;
 		}
 		this.setState({selections: selection_state});
@@ -70,13 +71,14 @@ class FavoritesComponent extends React.Component {
 		return (
 			<div className="container">
 				<div className={OFFSET_CONTAINER}>
-					{!isEmptyObject(this.props.favorites) && this.props.favorites.map((item, key) => (
-						<PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
+					{!isEmptyObject(this.props.favorites) && this.props.favorites.map((item) => (
+						<PhotoItem selected_item={this.state.selections[item.id]} key={item.id} id={item.id}
+							handler={this.handler}
 							image_source={item}/>
 					))}
 				</div>
 
-				<div className ={STYLE_TOP}>
+				<div className={STYLE_TOP}>
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					<div>
 						{<button
@@ -98,7 +100,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		removeFavorites: (favs) => dispatch(removeFromFavorites(favs)),
-		loadFavorites  : dispatch(loadFromFavorites()),
+		loadFavorites  : () => dispatch(loadFromFavorites()),
 	};
 };
 

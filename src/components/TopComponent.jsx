@@ -1,10 +1,11 @@
+import _ from "lodash";
 import React from "react";
 import {connect} from "react-redux";
 import {addToFavorites} from "../actions/FavoriteActions";
 import {loadNewPhotos} from "../actions/PhotoActions";
-import PhotoItem from "./ItemComponent";
-import {STYLE_TOP, OFFSET_CONTAINER, FAVORITE_ADD, BUTTON_DISABLED} from "../constants/StyleTypes";
+import {BUTTON_DISABLED, FAVORITE_ADD, OFFSET_CONTAINER, STYLE_TOP} from "../constants/StyleTypes";
 import "../styles/main.css";
+import PhotoItem from "./ItemComponent";
 
 
 class TopComponent extends React.Component {
@@ -22,14 +23,14 @@ class TopComponent extends React.Component {
 		super();
 		this.state = {
 			sum       : 0,
-			selections: [],
+			selections: {},
 		};
 
 		this.handler = this.handler.bind(this);
 		this.toggleHidden = this.toggleHidden.bind(this);
 	}
 
-	scrollHandler(){
+	scrollHandler() {
 		let d = document.documentElement;
 		let offset = d.scrollTop + window.innerHeight;
 		let height = d.offsetHeight;
@@ -49,7 +50,7 @@ class TopComponent extends React.Component {
 			}
 			this.setState({sum: a});
 		}
-		var selection_state = this.state.selections;
+		let selection_state = this.state.selections;
 		selection_state[one] = selected;
 		this.setState({
 			selections: selection_state,
@@ -58,11 +59,12 @@ class TopComponent extends React.Component {
 
 	toggleHidden() {
 		if (this.state.sum > 0) {
-
-			var resultArray = [];
-			for (var i = 0; i < this.state.selections.length; i++) {
-				if (this.state.selections[i] !== 0) {
-					resultArray.push(this.props.photos[i]);
+			let resultArray = [];
+			for (let m in this.state.selections) {
+				if (this.state.selections[m] !== 0) {
+					resultArray.push(_.find(this.props.photos, function (o) {
+						return Number(o.id) === Number(m);
+					}));
 				}
 			}
 			this.props.addFavorites(resultArray);
@@ -72,8 +74,8 @@ class TopComponent extends React.Component {
 
 	clearState() {
 		this.setState({sum: 0});
-		var selection_state = this.state.selections;
-		for (var i = 0; i < selection_state.length; i++) {
+		let selection_state = this.state.selections;
+		for (let i in this.state.selections) {
 			selection_state[i] = 0;
 		}
 		this.setState({selections: selection_state});
@@ -83,13 +85,14 @@ class TopComponent extends React.Component {
 		return (
 			<div className="container">
 				<div className={OFFSET_CONTAINER}>
-					{this.props.photos.map((item, key) => (
-						<PhotoItem selected_item={this.state.selections[key]} id={key} handler={this.handler}
+					{this.props.photos.map((item) => (
+						<PhotoItem selected_item={this.state.selections[item.id]} key={item.id} id={item.id}
+							handler={this.handler}
 							image_source={item}/>
 					))}
 				</div>
 
-				<div className ={STYLE_TOP}>
+				<div className={STYLE_TOP}>
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					{this.props.photosError &&
                     <span className="badge badge-pill badge-danger">{this.props.photosError.message}</span>}
