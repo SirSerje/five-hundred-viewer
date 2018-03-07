@@ -1,15 +1,15 @@
-import {render} from "react-dom";
+import { render } from "react-dom";
 import configureStore from "./store/MainStore";
-import {Provider} from "react-redux"; //{} uses if export default
+import { Provider } from "react-redux"; //{} uses if export default
 import App from "../src/components/AppComponent";
 import React from "react";
-import './styles/index.css';
+import "./styles/index.css";
 
 const store = configureStore();
 
 render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
-	document.getElementById("root")
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
 );
