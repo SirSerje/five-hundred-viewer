@@ -4,7 +4,6 @@ import React from "react";
 import {connect} from "react-redux";
 import {addToFavorites} from "../actions/FavoriteActions";
 import {loadNewPhotos} from "../actions/PhotoActions";
-import {BUTTON_DISABLED, FAVORITE_ADD, OFFSET_CONTAINER, STYLE_TOP} from "../constants/StyleTypes";
 import "../styles/main.css";
 import PhotoItem from "./ItemComponent";
 
@@ -85,7 +84,7 @@ class TopComponent extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				<div className={OFFSET_CONTAINER}>
+				<div className="row mt-3 offset-container">
 					{this.props.photos.map((item) => (
 						<PhotoItem selected_item={this.state.selections[item.id]} key={item.id} id={item.id}
 							handler={this.handler}
@@ -93,14 +92,14 @@ class TopComponent extends React.Component {
 					))}
 				</div>
 
-				<div className={STYLE_TOP}>
+				<div className="app-style-top">
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					{this.props.photosError &&
                     <span className="badge badge-pill badge-danger">{this.props.photosError.message}</span>}
 
 					<div>
 						{<button
-							className={this.state.sum > 0 ? FAVORITE_ADD : BUTTON_DISABLED}
+							className={this.state.sum > 0 ? "favorite-add": "button-disabled"}
 							onClick={this.toggleHidden}>
                             Favourites + </button>                    }
 					</div>

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import {connect} from "react-redux";
 import {loadFromFavorites, removeFromFavorites} from "../actions/FavoriteActions";
-import {BUTTON_DISABLED, FAVORITE_REMOVE, OFFSET_CONTAINER, STYLE_TOP} from "../constants/StyleTypes";
 import "../styles/main.css";
 import {isEmptyObject} from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
@@ -70,7 +69,7 @@ class FavoritesComponent extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				<div className={OFFSET_CONTAINER}>
+				<div className="row mt-3 offset-container">
 					{!isEmptyObject(this.props.favorites) && this.props.favorites.map((item) => (
 						<PhotoItem selected_item={this.state.selections[item.id]} key={item.id} id={item.id}
 							handler={this.handler}
@@ -78,11 +77,11 @@ class FavoritesComponent extends React.Component {
 					))}
 				</div>
 
-				<div className={STYLE_TOP}>
+				<div className="app-style-top">
 					<b>Top photo</b> <i>selected total : </i>{this.state.sum}
 					<div>
 						{<button
-							className={this.state.sum > 0 ? FAVORITE_REMOVE : BUTTON_DISABLED}
+							className={this.state.sum > 0 ? "favorite_remove" : "button-disabled"}
 							onClick={this.toggleHidden}>
                             Favourites X </button>}
 					</div>

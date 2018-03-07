@@ -1,12 +1,10 @@
 import {withRouter} from "react-router-dom";
 import React from "react";
 import "../../styles/main.css";
-import {TOP_BUTTON} from "../../constants/StyleTypes";
-
 
 const TopButtonComponent = withRouter(({history}) => (
 	<button
-		className={TOP_BUTTON}
+		className="top-button"
 		type='button'
 		onClick={() => {
 			history.push("/");
