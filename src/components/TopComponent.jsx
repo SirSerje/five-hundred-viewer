@@ -128,10 +128,14 @@ TopComponent.propTypes = {
   favorites: PropTypes.array
 };
 
+TopComponent.defaultProps = {
+  page: 1,
+};
+
 const mapStateToProps = state => {
   return {
     photos: state.photos,
-    page: state.page,
+    page: Number(state.page),
     photosError: state.photosError,
     favorites: state.favorites
   };

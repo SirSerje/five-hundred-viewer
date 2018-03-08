@@ -5,11 +5,10 @@ import {
   FAVORITES_RESTORED,
   RESTORE_EMPTY
 } from "../constants/ActionTypes";
-import { isEmptyObject } from "../utils/Utils";
 
 export const loadFromFavorites = value => dispatch => {
   let localStorageItems = reactLocalStorage.getObject("favorites");
-  if (isEmptyObject(localStorageItems)) {
+  if (_.isEmpty(localStorageItems)) {
     dispatch(restoreEmpty("No Item at all"));
   } else {
     dispatch(favoritesRestored(JSON.parse(localStorageItems)));
@@ -19,7 +18,7 @@ export const loadFromFavorites = value => dispatch => {
 export const removeFromFavorites = value => dispatch => {
   let localStorageItems = reactLocalStorage.getObject("favorites");
   let storagedItems;
-  if (!isEmptyObject(localStorageItems)) {
+  if (!_.isEmpty(localStorageItems)) {
     storagedItems = JSON.parse(localStorageItems);
     var result = _.differenceBy(storagedItems, value, v => v.image_url[0]);
     reactLocalStorage.setObject("favorites", JSON.stringify(result));
@@ -30,7 +29,7 @@ export const removeFromFavorites = value => dispatch => {
 export const addToFavorites = value => dispatch => {
   let localStorageItems = reactLocalStorage.getObject("favorites");
   let storagedItems;
-  if (!isEmptyObject(localStorageItems)) {
+  if (!_.isEmpty(localStorageItems)) {
     storagedItems = JSON.parse(localStorageItems);
     favoritesRestored(storagedItems);
   }
@@ -38,14 +37,14 @@ export const addToFavorites = value => dispatch => {
   let finalData = value;
   if (
     value !== undefined &&
-    !isEmptyObject(value) &&
+    !_.isEmpty(value) &&
     storagedItems !== undefined
   ) {
     finalData = value.concat(storagedItems);
     finalData = _.uniqBy(finalData, v => v.image_url[0]);
   }
 
-  if (finalData !== undefined && !isEmptyObject(finalData)) {
+  if (finalData !== undefined && !_.isEmpty(finalData)) {
     reactLocalStorage.setObject("favorites", JSON.stringify(finalData));
   }
 

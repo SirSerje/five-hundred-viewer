@@ -7,7 +7,6 @@ import {
   removeFromFavorites
 } from "../actions/FavoriteActions";
 import "../styles/main.css";
-import { isEmptyObject } from "../utils/Utils";
 import PhotoItem from "./ItemComponent";
 
 class FavoritesComponent extends React.Component {
@@ -73,7 +72,7 @@ class FavoritesComponent extends React.Component {
     return (
       <div className="container">
         <div className="row mt-3 offset-container">
-          {!isEmptyObject(this.props.favorites) &&
+          {!_.isEmpty(this.props.favorites) &&
             this.props.favorites.map(item => (
               <PhotoItem
                 selected_item={this.state.selections[item.id]}
